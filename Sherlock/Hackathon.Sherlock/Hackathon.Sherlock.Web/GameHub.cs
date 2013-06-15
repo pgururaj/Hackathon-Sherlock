@@ -24,5 +24,10 @@ namespace Hackathon.Sherlock.Web
             var sessionId = context.Session.SessionID;
            // var client=Clients.Client(Context.ConnectionId);
         }
+
+        public void IsGameFull()
+        {
+            Clients.All.isGameFull(Game.Users.Count > 3);
+        }
     }
 }   
