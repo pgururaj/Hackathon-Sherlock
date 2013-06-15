@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Hackathon.Sherlock.Alchemy;
 
 namespace Hackathon.Sherlock.Web.Models
 {
     public class Sherlock :User
     {
-        public Dictionary<string,> GetPossibleResponses
+        public Dictionary<string, AlchemyWeightedData> GetPossibleResponses;
     }
 }

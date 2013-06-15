@@ -137,6 +137,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AllGameChallenges.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -149,9 +150,11 @@
     </Compile>
     <Compile Include="GameHub.cs" />
     <Compile Include="Models\Category.cs" />
-    <Compile Include="Models\Challenge.cs" />
+    <Compile Include="Models\GameRound.cs" />
+    <Compile Include="Models\Sherlock.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Sherlock.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\css\bootstrap-responsive.css" />
