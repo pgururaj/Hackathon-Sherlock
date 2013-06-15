@@ -38,9 +38,13 @@
             };
 
 
-            game.client.newChallenge = function (challenge) { 
-            
+            game.client.newChallenge = function (challenge) {
+
                 $('#challenge').html(challenge);
+            };
+
+            game.client.isGameFull = function (value) {
+                //do stuff is game is full
             }
  
             
@@ -48,7 +52,7 @@
             // Start the connection.
             $.connection.hub.start().done(function () {
                 game.server.sendUserResponse();
-                game.server.sendChallenge();
+                
                 var sessionId = $('#sessionId').val();
                 $('#sendmessage').click(function () {                    
                     game.server.sendUserResponse(sessionId, $('#message').val());
