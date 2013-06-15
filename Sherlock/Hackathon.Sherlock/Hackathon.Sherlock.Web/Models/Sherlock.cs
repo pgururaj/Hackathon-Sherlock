@@ -6,11 +6,11 @@ using Hackathon.Sherlock.Alchemy;
 
 namespace Hackathon.Sherlock.Web.Models
 {
-    public class Sherlock :User
+    public class Sherlock:User
     {
         public Dictionary<string, AlchemyWeightedData> GetPossibleResponses()
         {
-            
-        };
+            return new Dictionary<string, AlchemyWeightedData>();
+        }
     }
 }
