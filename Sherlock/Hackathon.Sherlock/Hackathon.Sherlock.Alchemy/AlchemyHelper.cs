@@ -17,6 +17,15 @@ namespace Hackathon.Sherlock.Alchemy
         private string URLGetConstraintQuery = "http://access.alchemyapi.com/calls/url/URLGetConstraintQuery";
         private string URLGetText = "http://access.alchemyapi.com/calls/url/URLGetText";
 
+        public IList<AlchemyWeightedData> GetResponse(string SearchParam, string Category)
+        {
+            var sherlockRankList = new List<AlchemyWeightedData>();
+
+            GoogleHelper gHelp = new GoogleHelper();
+            var results = gHelp.GetSearchResults(SearchParam);
+            return sherlockRankList;
+        }
+
         public void CallGetRankedKeywordAPI(string ClientURL)
         {
             StringBuilder sb = new StringBuilder();
