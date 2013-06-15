@@ -26,7 +26,7 @@ namespace Hackathon.Sherlock.Alchemy
             var result = WebHelper.GetObjectResponse<AlchemyResponse>(request);
         }
 
-        public Dictionary<string, AlchemyWeightedData> CallGetRankedNamedEntities(string ClientURL, string Category)
+        public IList<AlchemyWeightedData> CallGetRankedNamedEntities(string ClientURL, string Category)
         {
             StringBuilder sb = new StringBuilder();
             sb.AppendFormat("{0}?apikey={1}&outputMode=json&url={2}", URLGetRankedNamedEntities, APIKey, ClientURL);
@@ -34,7 +34,7 @@ namespace Hackathon.Sherlock.Alchemy
             var request = WebHelper.GetWebRequest(sb.ToString(), null);
             var result = WebHelper.GetObjectResponse<dynamic>(request);
 
-            var sherlockRank = new Dictionary<string, AlchemyWeightedData>();
+            var sherlockRankList = new List<AlchemyWeightedData>();
             int counter = 0;
             
             foreach (var item in result.entities)
@@ -43,12 +43,12 @@ namespace Hackathon.Sherlock.Alchemy
                 if (item.type == Category)
                 {
                     var alchWtData = new AlchemyWeightedData { TextResponse = item.text, RelevanceScore = item.relevance, Order = counter };
-                    sherlockRank.Add("Question", alchWtData);
+                    sherlockRankList.Add(alchWtData);
                     counter++;
                 }
                 
             }
-            return sherlockRank;
+            return sherlockRankList;
         }
     }
 }
