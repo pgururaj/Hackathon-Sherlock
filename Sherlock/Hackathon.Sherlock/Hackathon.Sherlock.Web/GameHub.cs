@@ -11,7 +11,6 @@ namespace Hackathon.Sherlock.Web
     {
         public void SendChallenge()
         {
-
             var gameRound = Game.GetNextRound();
             Clients.All.newChallenge(new Random().Next(100000));
         }
