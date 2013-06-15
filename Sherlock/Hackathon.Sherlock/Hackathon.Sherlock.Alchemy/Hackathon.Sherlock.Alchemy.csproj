@@ -45,6 +45,7 @@
     <Compile Include="AlchemyHelper.cs" />
     <Compile Include="AlchemyResponse.cs" />
     <Compile Include="Class1.cs" />
+    <Compile Include="GoogleHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WebHelper.cs" />
   </ItemGroup>

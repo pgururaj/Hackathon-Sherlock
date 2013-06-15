@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -42,6 +43,8 @@ namespace Hackathon.Sherlock.Alchemy
 
             string json = new StreamReader(webResponse.GetResponseStream()).ReadToEnd();
             T jobStatusResponse = JsonConvert.DeserializeObject<T>(json);
+            //dynamic final = JObject.Parse(json);
+            //final.Name = "";
 
 
 

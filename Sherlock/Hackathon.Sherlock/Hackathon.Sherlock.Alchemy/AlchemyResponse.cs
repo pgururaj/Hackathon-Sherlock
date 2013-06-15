@@ -20,4 +20,12 @@ namespace Hackathon.Sherlock.Alchemy
         public string Text { get; set; }
         public string Relevance { get; set; }
     }
+
+    public class AlchemyWeightedData
+    {
+        public string TextResponse { get; set; }
+        public string RelevanceScore {get; set; }
+        public int Order { get; set; }
+    
+    }
 }

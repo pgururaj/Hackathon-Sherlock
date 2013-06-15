@@ -16,7 +16,8 @@ namespace Hackathon.Sherlock.Web.Controllers
         public ActionResult Index()
         {
             AlchemyHelper alchemy = new AlchemyHelper();
-            alchemy.CallGetRankedKeywordAPI("http://en.wikipedia.org/wiki/Robert_Wadlow");
+            alchemy.CallGetRankedKeywordAPI("http://www.kcfountains.com/");
+            var response = alchemy.CallGetRankedNamedEntities("http://www.kcfountains.com/", "City");
             
             return View();
         }
