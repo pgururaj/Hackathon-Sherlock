@@ -8,6 +8,9 @@ namespace Hackathon.Sherlock.Web.Models
 {
     public class Sherlock :User
     {
-        public Dictionary<string, AlchemyWeightedData> GetPossibleResponses;
+        public Dictionary<string, AlchemyWeightedData> GetPossibleResponses()
+        {
+            
+        };
     }
 }
