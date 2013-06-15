@@ -21,8 +21,17 @@ namespace Hackathon.Sherlock.Alchemy
         {
             var sherlockRankList = new List<AlchemyWeightedData>();
 
+            //call google to get the search results - URL
             GoogleHelper gHelp = new GoogleHelper();
-            var results = gHelp.GetSearchResults(SearchParam);
+            IList<GoogleSearchResult> googleresultList = gHelp.GetSearchResults(SearchParam);
+
+            //iterate through the GoogleSearchResult and pass each URL to Alchemy to get a weihted score
+            foreach (var googleResult in googleresultList)
+            {
+                CallGetRankedNamedEntities(googleResult.GSearchResultURL, Category);
+            }
+
+
             return sherlockRankList;
         }
 
