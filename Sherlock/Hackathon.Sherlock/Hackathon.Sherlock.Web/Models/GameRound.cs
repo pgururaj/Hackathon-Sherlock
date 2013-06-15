@@ -10,6 +10,7 @@ namespace Hackathon.Sherlock.Web.Models
         public Category Category{get;set;}
         public string Challenge { get; set; }
         public string CorrectResponse { get; set; }
+        public int Reward { get; set; }
     }
 
     public enum Category

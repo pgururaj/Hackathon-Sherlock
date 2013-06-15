@@ -30,5 +30,10 @@ namespace Hackathon.Sherlock.Web
         }
 
         public static Category CurrentCategory{get;set;}
+
+        internal static GameRound GetNextRound()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
