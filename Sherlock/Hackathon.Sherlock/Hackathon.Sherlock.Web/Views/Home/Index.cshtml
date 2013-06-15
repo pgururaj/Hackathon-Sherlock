@@ -6,14 +6,17 @@
 <div class="container">
     <input type="text" id="message" />
     <input type="button" id="sendmessage" value="Send" />
+    <input type="button" id="newChallenge" value="New Challenge" />
     <input type="hidden" id="displayname" />
+
+    <div id="challenge"></div>
     <ul id="discussion">
     </ul>
 </div>
 
 
 
-<input id="sessinId" type="hidden" value="@Session.SessionID" /> 
+<input id="sessionId" type="hidden" value="@Session.SessionID" /> 
 
 
 @section scripts {
@@ -29,30 +32,34 @@
             // Reference the auto-generated proxy for the hub.  
             var game = $.connection.gameHub;
             // Create a function that the hub can call back to display messages.
-            game.client.sendResponse = function (sessionId, response) {              
+            game.client.handleResponse = function (sessionId, response) {              
                 $('#discussion').append('<li><strong>' + htmlEncode(sessionId)
                     + '</strong>: ' + htmlEncode(response) + '</li>');
             };
 
-            
-            // Get the user name and store it to prepend to messages.
-            //$('#displayname').val(prompt('Enter your name:', ''));
-            // Set initial focus to message input box.  
 
+            game.client.newChallenge = function (challenge) { 
+            
+                $('#challenge').html(challenge);
+            }
+ 
             
             $('#message').focus();
             // Start the connection.
             $.connection.hub.start().done(function () {
                 game.server.sendUserResponse();
-                
-                var sessionId = $('#sessinId').val();
-                $('#sendmessage').click(function () {
-                    // Call the Send method on the hub. 
-                    //game.server.send($('#displayname').val(), $('#message').val());
+                game.server.sendChallenge();
+                var sessionId = $('#sessionId').val();
+                $('#sendmessage').click(function () {                    
                     game.server.sendUserResponse(sessionId, $('#message').val());
-                    // Clear text box and reset focus for next comment. 
                     $('#message').val('').focus();
                 });
+
+                $('#newChallenge').click(function () {
+                    game.server.sendChallenge();
+                });
+                
+
             });
         });
         // This optional function html-encodes messages for display in the page.

@@ -8,15 +8,14 @@ namespace Hackathon.Sherlock.Web
 {
     public class GameHub : Hub
     {
-        public void SendChallenge(string challenge)
+        public void SendChallenge()
         {
-
-            Clients.All.challenge("test");
+            Clients.All.newChallenge(new Random().Next(100000));
         }
 
         public void SendUserResponse(string sessionId, string response)
         {
-            Clients.All.sendResponse(sessionId,response);
+            Clients.All.handleResponse(sessionId, response);
         }
 
         public void GetSessionId()
