@@ -19,7 +19,7 @@ namespace Hackathon.Sherlock.Web
             //AllGameChallenges.AllGameRounds;
         }
 
-        public void AddUser(User user)
+        public static void AddUser(User user)
         {
             if (Users.Count < 4)
             {
@@ -27,6 +27,6 @@ namespace Hackathon.Sherlock.Web
             }
         }
 
-        public Category CurrentCategory{get;set;}
+        public static Category CurrentCategory{get;set;}
     }
 }
