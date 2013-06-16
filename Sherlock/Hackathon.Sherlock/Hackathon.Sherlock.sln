@@ -5,6 +5,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hackathon.Sherlock.Web", "H
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hackathon.Sherlock.Alchemy", "Hackathon.Sherlock.Alchemy\Hackathon.Sherlock.Alchemy.csproj", "{85099A32-ADFE-4A15-A173-FA130111C2A1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hackathon.Sherlock.IronIO", "Hackathon.Sherlock.IronIO\Hackathon.Sherlock.IronIO.csproj", "{E2C0DA48-D29A-45C1-8063-6DC77DE3C1BB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelloSherlock.Console", "HelloSherlock.Console\HelloSherlock.Console.csproj", "{55AF98C8-30EC-45AD-8023-6E458A84EBBF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,6 +23,14 @@ Global
 		{85099A32-ADFE-4A15-A173-FA130111C2A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{85099A32-ADFE-4A15-A173-FA130111C2A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{85099A32-ADFE-4A15-A173-FA130111C2A1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E2C0DA48-D29A-45C1-8063-6DC77DE3C1BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E2C0DA48-D29A-45C1-8063-6DC77DE3C1BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E2C0DA48-D29A-45C1-8063-6DC77DE3C1BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E2C0DA48-D29A-45C1-8063-6DC77DE3C1BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55AF98C8-30EC-45AD-8023-6E458A84EBBF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55AF98C8-30EC-45AD-8023-6E458A84EBBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55AF98C8-30EC-45AD-8023-6E458A84EBBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55AF98C8-30EC-45AD-8023-6E458A84EBBF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

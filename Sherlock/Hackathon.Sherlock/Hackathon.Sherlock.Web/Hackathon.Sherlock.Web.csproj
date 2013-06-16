@@ -254,6 +254,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Sandbox\Index.cshtml" />
+    <Content Include="Views\Sandbox\IronIO.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -266,6 +267,10 @@
     <ProjectReference Include="..\Hackathon.Sherlock.Alchemy\Hackathon.Sherlock.Alchemy.csproj">
       <Project>{85099a32-adfe-4a15-a173-fa130111c2a1}</Project>
       <Name>Hackathon.Sherlock.Alchemy</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Hackathon.Sherlock.IronIO\Hackathon.Sherlock.IronIO.csproj">
+      <Project>{e2c0da48-d29a-45c1-8063-6dc77de3c1bb}</Project>
+      <Name>Hackathon.Sherlock.IronIO</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
