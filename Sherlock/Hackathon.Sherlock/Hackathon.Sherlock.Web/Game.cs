@@ -108,7 +108,9 @@ namespace Hackathon.Sherlock.Web
             {
                 user.Money = user.Money + CurrentChallenge.Reward;
                 LastWinner = user;
+                CurrentPicker = user;
             }
+            
         }
 
         public static string GetCorrectResponse()

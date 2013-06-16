@@ -163,9 +163,14 @@
                 user.canPlay = status;
                 console.log(user.canPlay);
             }
+
+            game.client.setCurrentPicker = function (name,sessionId) {
+                
+                console.log('session: '+sessionId);
+            }
  
             
-            $('#message').focus();
+            //$('#message').focus();
             // Start the connection.
 
                 

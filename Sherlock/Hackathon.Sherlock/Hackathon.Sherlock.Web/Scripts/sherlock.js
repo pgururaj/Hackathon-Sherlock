@@ -54,6 +54,7 @@ $.connection.hub.start().done(function () {
     var sessionId = $('#sessionId').val();
     game.server.addUserToGame(sessionId, name);
     game.server.getUserStatus(sessionId);
+    game.server.getCurrentPicker();
     gameManager.init();
 });
 
