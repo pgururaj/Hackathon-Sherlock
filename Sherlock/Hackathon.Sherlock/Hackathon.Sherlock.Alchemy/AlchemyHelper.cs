@@ -89,30 +89,32 @@ namespace Hackathon.Sherlock.Alchemy
                         code_name = "alchemy",
                         payload = JsonConvert.SerializeObject(payload)
                     };
-
-
                     listOfTasks.Add(taskToIron);
                     tasksToBeQueued.tasks = listOfTasks;
                     //var alchWtData = CallGetRankedNamedEntities(googleResult.GSearchResultURL, Category);
-                    //foreach (var alchResponse in alchWtData)
-                    //{
-                    //    //if (null != aggDict[alchResponse.TextResponse])
-                    //    if (aggDict.ContainsKey(alchResponse.TextResponse))
-                    //    {
-                    //        //key already exists - modify
-                    //        var toModifyAlchemyWtData = aggDict[alchResponse.TextResponse];
-                    //        toModifyAlchemyWtData.RelevanceScore = (toModifyAlchemyWtData.RelevanceScore + alchResponse.RelevanceScore) / 2;
-                    //        aggDict[alchResponse.TextResponse] = toModifyAlchemyWtData;
-                    //    }
-                    //    else
-                    //    {
-                    //        //new key, just add
-                    //        aggDict.Add(alchResponse.TextResponse, alchResponse);
-                    //    }
-                    //}
-
                 }
                 QueueTaskResponse response = iron.queue_tasks("51bbe549ed3d7679f5000282", "BXxvffaWJeFwM4WTo52mt1x9OXY", tasksToBeQueued);
+
+                foreach (var ironTask in response.tasks)
+                {
+                    string responseFromIronTask = iron.GetTaskResponse("51bbe549ed3d7679f5000282", ironTask.id, "BXxvffaWJeFwM4WTo52mt1x9OXY");
+                    IList<AlchemyWeightedData> alchWtData = JsonConvert.DeserializeObject<IList<AlchemyWeightedData>>(responseFromIronTask);
+                    foreach (var alchResponse in alchWtData)
+                    {
+                        if (aggDict.ContainsKey(alchResponse.TextResponse))
+                        {
+                            //key already exists - modify
+                            var toModifyAlchemyWtData = aggDict[alchResponse.TextResponse];
+                            toModifyAlchemyWtData.RelevanceScore = (toModifyAlchemyWtData.RelevanceScore + alchResponse.RelevanceScore) / 2;
+                            aggDict[alchResponse.TextResponse] = toModifyAlchemyWtData;
+                        }
+                        else
+                        {
+                            //new key, just add
+                            aggDict.Add(alchResponse.TextResponse, alchResponse);
+                        }
+                    }
+                }
 
                 //get output from workers and aggregate the data
 

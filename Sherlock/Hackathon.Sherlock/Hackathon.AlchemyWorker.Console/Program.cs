@@ -30,14 +30,14 @@ namespace Hackathon.AlchemyWorker.Console
                 {
                     string path = args[ind + 1];
                     string payload = File.ReadAllText(path);
-                    System.Console.WriteLine("!!payload=" + payload);
+                    //System.Console.WriteLine("!!payload=" + payload);
                     payloadInstance = JsonConvert.DeserializeObject<AlchemyPaylaod>(payload);
                 }
 
 
                 StringBuilder sb = new StringBuilder();
                 sb.AppendFormat("{0}?apikey={1}&outputMode=json&url={2}", URLGetRankedNamedEntities, APIKey, payloadInstance.Url);
-                System.Console.WriteLine("!!call to Alchemi=" + sb.ToString());
+                //System.Console.WriteLine("!!call to Alchemi=" + sb.ToString());
 
                 var request = WebHelper.GetWebRequest(sb.ToString(), null);
                 var result = WebHelper.GetObjectResponse<dynamic>(request);
@@ -65,19 +65,4 @@ namespace Hackathon.AlchemyWorker.Console
         }
     }
 }
-
-
-
-
-//int ind = Array.IndexOf(args, "-payload");
-//        if( ind >= 0 && (ind+1) < args.Length ){
-//            string path = args[ind+1];
-//            string payload = File.ReadAllText(path);
-//            JavaScriptSerializer serializer = new JavaScriptSerializer();
-//            IDictionary<string,string> json = serializer.Deserialize <Dictionary<string, string>>(payload);
-//            foreach (string key in json.Keys)
-//            {
-//                Console.WriteLine( key + " = " + json[key] );
-//            }
-//        }
 
