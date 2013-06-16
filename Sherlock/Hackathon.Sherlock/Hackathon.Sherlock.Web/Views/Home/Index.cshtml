@@ -9,36 +9,6 @@
 
 <div class="container">
 
-    <div id="players" class="clearfix">
-		<div id="player1">
-			<div id="player_avatar_0" class="avatar"></div>
-			<form>
-				<textarea rows="3"></textarea>
-				<input type="submit" class='btn btn-primary'/>
-			</form>
-		</div>
-		<div id="player2">
-			<div id="player_avatar_1" class="avatar"></div>
-			<form>
-				<textarea rows="3"></textarea>
-				<input type="submit" class='btn btn-primary'/>
-			</form>
-		</div>
-		<div id="player3">
-			<div id="player_avatar_2" class="avatar"></div>
-			<form>
-				<textarea rows="3"></textarea>
-				<input type="submit" class='btn btn-primary'/>
-			</form>
-		</div>
-		<div class="sherlock">
-			<div class="avatar"></div>
-			<form>
-				<textarea rows="3"></textarea>
-				<input type="submit" class='btn btn-primary'/>
-			</form>
-		</div>
-	</div>
 	<div id="board" class="">
 		<div id="selection" class="">
 			<div class="row  header">
@@ -67,6 +37,22 @@
 			</div>
 			<div id="response">
 			</div>
+		</div>
+	</div>
+    
+    <div id="players" class="clearfix">
+		<div id="player1">
+			<div id="player_avatar_0" class="avatar"></div>
+			<form>
+				<textarea id="playerAnswer" rows="3"></textarea>
+				<button id="playerSubmit" class='btn btn-primary'>Submit</button>
+			</form>
+		</div>
+		<div class="sherlock">
+			<div class="avatar"></div>
+			<form>
+				<textarea id="sherlockAnswer" rows="3"></textarea>
+			</form>
 		</div>
 	</div>
 @*    <div>
@@ -116,7 +102,7 @@
 
 
     <script src="http://static.opentok.com/v1.1/js/TB.min.js"></script>
+    <script src="~/Scripts/game.js"></script>
     <script src="~/Scripts/bootstrap.js"></script>
     <script src="~/Scripts/sherlock.js"></script>
-    <script src="~/Scripts/game.js"></script>
 }

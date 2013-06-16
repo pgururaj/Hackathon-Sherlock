@@ -48,6 +48,7 @@ Player
 	# Make selection from screen
 
 */
+
 var game = $.connection.gameHub;
 
 $.connection.hub.start().done(function () {
@@ -60,55 +61,97 @@ $.connection.hub.start().done(function () {
 
 var gameManager = {
     MAX_PLAYERS: 3, // Maximum number of player excluding Sherlock
+    didPlayerWin : true,
+    init : function(){
+        console.log('gameManager.init');
 
-	init : function(){
+        user.sessionID = $('#sessionId').val();
+        /* GAME UI */
 
-	    // Check if hit max players
+        $('#selection .answer .cell').click(function (event) {
+            $(this).addClass("inactive");
+            gameManager.handleChallengeSelection();
+        });
 
-		// Get SESSION
-	    // Send session
+        $('#presentor').click(function (e) {
+            gameManager.presentAnswer();
+        });
 
-	    /* UI */
-	    $('#selection .answer .cell').click(function (event) {
-	        $(this).addClass("inactive");
-	    });
 
-		/*  Tokbox */
-		TB.addEventListener("exception", tok.exceptionHandler);
+        /* User UI */
+        user.answerSubmit.click(function (e) {
+            console.log('getting user answer');
+            e.preventDefault();
+            var userAnswerText = user.answerBox.val();
+            console.log(userAnswerText);
+            game.server.sendResponse(user.sessionID, userAnswerText);
+        });
 
-		if (TB.checkSystemRequirements() != TB.HAS_REQUIREMENTS) {
-		    alert('Minimum System Requirements not met!');
-		}
-		else {
-		    session = TB.initSession(tok.sessionId);
+        /*  Tokbox */
+        TB.addEventListener("exception", tok.exceptionHandler);
+
+        if (TB.checkSystemRequirements() != TB.HAS_REQUIREMENTS) {
+            alert('Minimum System Requirements not met!');
+        }
+        else {
+            tok.session = TB.initSession(tok.sessionId);
             
-			session.addEventListener("sessionConnected", tok.sessionConnectedHandler);
-			session.addEventListener("streamCreated", tok.streamCreatedHandler);
-			session.connect(tok.apiKey, tok.token);
+            tok.session.addEventListener("sessionConnected", tok.sessionConnectedHandler);
+            tok.session.addEventListener("streamCreated", tok.streamCreatedHandler);
+            tok.session.connect(tok.apiKey, tok.token);
 		
-			//session.addEventListener('sessionDisconnected', sessionDisconnectedHandler);
-			//session.addEventListener('connectionCreated', connectionCreatedHandler);
-			//session.addEventListener('connectionDestroyed', connectionDestroyedHandler);
-			//session.addEventListener('streamDestroyed', streamDestroyedHandler);
-		
-		}
-		//*/
-	},
-	presentBoard : function(){
-	    $('#selection').addClass('show');
-	},
-	presentChallenge : function(){
+            //session.addEventListener('sessionDisconnected', sessionDisconnectedHandler);
+            //session.addEventListener('connectionCreated', connectionCreatedHandler);
+            //session.addEventListener('connectionDestroyed', connectionDestroyedHandler);
+            //session.addEventListener('streamDestroyed', streamDestroyedHandler);
+        }
+        //*/
 
-		var challenge = "This 19th century hermit won the superbowl";
-		var response = "Julius Cesear Chavez";
-		$('#challenge').text(challenge);
-		$('#response').text(response).hide();
+        gameManager.loop();
+    },
+    loop: function () {
+        console.log('gameManager.loop');
+        // 1 select question by player
+        gameManager.presentBoard();
 
-		$('#presentor').removeClass('hide');
-		setTimeout(function(){
-		    $('#presentor')[0].className = "";
-		},100);
-	},
+        // present
+        // send question to sherlock
+        // accept winner
+        // select question by player
+    },
+    presentBoard : function(){
+        $('#selection').addClass('show');
+    },
+
+    dismissBoard: function () {
+        $('#selection').removeClass('show');
+    },
+    presentChallenge: function (challenge) {
+
+        $('#challenge').html(challenge.Challenge).show();
+        $('#response').html(challenge.CorrectResponse).hide();
+
+        $('#presentor').removeClass('hide');
+        setTimeout(function(){
+            $('#presentor')[0].className = "";
+        }, 100);
+        setTimeout(function () {
+            gameManager.dismissBoard();
+        }, 350);
+
+    },
+    handleChallengeSelection : function(){
+        game.server.sendChallenge();
+    },
+    handlePlayerResponse : function(sessionId){
+        if (sessionId == user.sessionID) {
+            // Player answered
+            alert('Player response');
+        }
+        else {
+            // Sherlock answered
+        }
+    },
 
 	presentAnswer : function (){
 	    $('#challenge').hide();
@@ -126,7 +169,9 @@ var gameManager = {
 };
 
 var user = {
-	canPlay : false,
+    answerBox: $('#playerAnswer'),
+    answerSubmit: $('#playerSubmit'),
+	canPlay : true,
 	sessionID : "",
 	streamID : "",
 	declareTurn : function(){},
@@ -136,6 +181,7 @@ var user = {
 
 
 var sherlock = {
+    answerBox : $('#sherlockAnswer'),
 	readChallenge : function(){},
 	selectChallenge : function(){},
 	submitResponse : function(){},
@@ -151,7 +197,8 @@ var tok = {
 	token: 'T1==cGFydG5lcl9pZD0zMjEzNTUwMiZzZGtfdmVyc2lvbj10YnJ1YnktdGJyYi12MC45MS4yMDExLTAyLTE3JnNpZz0zNmI1ZTA4NTRlYjZjZmI1MmRiODA5MzBiMTE2Mzk1N2QxNWQ4ZmUyOnJvbGU9cHVibGlzaGVyJnNlc3Npb25faWQ9Ml9NWDR6TWpFek5UVXdNbjR4TWpjdU1DNHdMakYtVTJGMElFcDFiaUF4TlNBeE1Eb3hOVG8xT1NCUVJGUWdNakF4TTM0d0xqTXlNVEU1ZmcmY3JlYXRlX3RpbWU9MTM3MTMxNjU2MSZub25jZT0wLjc4MTQyMjE5Mjc4Mjg4MDMmZXhwaXJlX3RpbWU9MTM3MTQwMjk2MiZjb25uZWN0aW9uX2RhdGE9',
 	VIDEO_WIDTH : 220,
 	VIDEO_HEIGHT : 150,
-	publisher : null,
+	publisher: null,
+    session: null,
 
 	exceptionHandler : function (event) {
 		alert("Exception: " + event.code + "::" + event.message);
@@ -159,7 +206,7 @@ var tok = {
 	
 	// Tokbox Event Handlers
 	sessionConnectedHandler : function (event) {
-		if(event.streams.length < game.MAX_PLAYERS){
+		if(event.streams.length < gameManager.MAX_PLAYERS){
 
 			console.log('publish');
 			tok.startPublishing();
@@ -176,9 +223,9 @@ var tok = {
 	// Tokbox UI
 	subscribeToStreams : function (streams) {
 		var avatarCount = 0;
-		var allowableStreams = (game.MAX_PLAYERS > streams.length)?streams.length:game.MAX_PLAYERS;
+		var allowableStreams = (gameManager.MAX_PLAYERS > streams.length) ? streams.length : gameManager.MAX_PLAYERS;
 
-		console.log('game.MAX_PLAYERS: ' + game.MAX_PLAYERS);
+		console.log('gameManager.MAX_PLAYERS: ' + gameManager.MAX_PLAYERS);
 		console.log('streams.length: ' + streams.length);
 		console.log('allowableStreams: ' + allowableStreams);
 			console.log('-------')
@@ -192,22 +239,22 @@ var tok = {
 			console.log('iterator ' + i);
 
 			// Limit streams to 3
-			if(i >= game.MAX_PLAYERS){
+			if (i >= gameManager.MAX_PLAYERS) {
 				break;
 			}
 
 			var stream = streams[i];
 			
-			if (stream.connection.connectionId != session.connection.connectionId) {
+			if (stream.connection.connectionId != tok.session.connection.connectionId) {
 
 				console.log('avatarCount: ' + avatarCount);
 				var parentDiv = document.getElementById("player_avatar_"+ avatarCount);
 				var subscriberDiv = document.createElement('div'); // Create a div for the subscriber to replace
 
 				subscriberDiv.setAttribute('id', stream.streamId); // Give the replacement div the id of the stream as its id.
-				parentDiv.appendChild(subscriberDiv);
-				var subscriberProps = {width: tok.VIDEO_WIDTH, height: tok.VIDEO_HEIGHT};
-				session.subscribe(stream, subscriberDiv.id, subscriberProps);
+				//parentDiv.appendChild(subscriberDiv);
+				//var subscriberProps = {width: tok.VIDEO_WIDTH, height: tok.VIDEO_HEIGHT};
+				//tok.session.subscribe(stream, subscriberDiv.id, subscriberProps);
 
 
 				avatarCount ++;
@@ -216,7 +263,6 @@ var tok = {
 	},
 
 	startPublishing : function() {
-		if (!tok.publisher && user.canPlay) {
 			var parentDiv = document.getElementById("player_avatar_0");
 			var publisherDiv = document.createElement('div'); // Create a div for the publisher to replace
 			publisherDiv.setAttribute('id', 'opentok_publisher');
@@ -224,8 +270,7 @@ var tok = {
 			var publisherProps = {width: tok.VIDEO_WIDTH, height: tok.VIDEO_HEIGHT, publishAudio: false};
 
 			tok.publisher = TB.initPublisher(tok.apiKey, publisherDiv.id, publisherProps);  // Pass the replacement div id and properties
-			session.publish(tok.publisher);
-		}
+			tok.session.publish(tok.publisher);
 	}
 }
 
