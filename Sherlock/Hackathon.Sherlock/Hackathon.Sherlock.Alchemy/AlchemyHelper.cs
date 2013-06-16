@@ -20,38 +20,43 @@ namespace Hackathon.Sherlock.Alchemy
         public Dictionary<string, AlchemyWeightedData> GetResponse(string SearchParam, string Category)
         {
             var sherlockRankList = new List<AlchemyWeightedData>();
-
-            //call google to get the search results - URL
-            GoogleHelper gHelp = new GoogleHelper();
-            IList<GoogleSearchResult> googleresultList = gHelp.GetSearchResults(SearchParam);
-
-            IList<AlchemyWeightedData> aggrgAlchemyWeight = new List<AlchemyWeightedData>();
-
             var aggDict = new Dictionary<string, AlchemyWeightedData>();
-
-            //iterate through the GoogleSearchResult and pass each URL to Alchemy to get a weihted score
-            foreach (var googleResult in googleresultList)
+            try
             {
-                var alchWtData = CallGetRankedNamedEntities(googleResult.GSearchResultURL, Category);
-                foreach (var alchResponse in alchWtData)
+
+                //call google to get the search results - URL
+                GoogleHelper gHelp = new GoogleHelper();
+                IList<GoogleSearchResult> googleresultList = gHelp.GetSearchResults(SearchParam);
+
+                IList<AlchemyWeightedData> aggrgAlchemyWeight = new List<AlchemyWeightedData>();
+
+               
+
+                //iterate through the GoogleSearchResult and pass each URL to Alchemy to get a weihted score
+                foreach (var googleResult in googleresultList)
                 {
-                    //if (null != aggDict[alchResponse.TextResponse])
-                    if (aggDict.ContainsKey(alchResponse.TextResponse))
+                    var alchWtData = CallGetRankedNamedEntities(googleResult.GSearchResultURL, Category);
+                    foreach (var alchResponse in alchWtData)
                     {
-                        //key already exists - modify
-                        var toModifyAlchemyWtData = aggDict[alchResponse.TextResponse];
-                        toModifyAlchemyWtData.RelevanceScore = (toModifyAlchemyWtData.RelevanceScore + alchResponse.RelevanceScore) / 2;
-                        aggDict[alchResponse.TextResponse] = toModifyAlchemyWtData;
+                        //if (null != aggDict[alchResponse.TextResponse])
+                        if (aggDict.ContainsKey(alchResponse.TextResponse))
+                        {
+                            //key already exists - modify
+                            var toModifyAlchemyWtData = aggDict[alchResponse.TextResponse];
+                            toModifyAlchemyWtData.RelevanceScore = (toModifyAlchemyWtData.RelevanceScore + alchResponse.RelevanceScore) / 2;
+                            aggDict[alchResponse.TextResponse] = toModifyAlchemyWtData;
+                        }
+                        else
+                        {
+                            //new key, just add
+                            aggDict.Add(alchResponse.TextResponse, alchResponse);
+                        }
                     }
-                    else
-                    {
-                        //new key, just add
-                        aggDict.Add(alchResponse.TextResponse, alchResponse);
-                    }
+
                 }
-
             }
-
+            catch (Exception e)
+            { }
 
             return aggDict;
         }
