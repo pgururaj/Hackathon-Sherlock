@@ -81,6 +81,8 @@ namespace Hackathon.Sherlock.Web
         public void AddUserToGame(string sessionId,string name)
         {
             Game.AddUser(new User{ SessionId=sessionId, Name=name, Money=0});
+            if (Game.Users.Count > 3)
+                StartGame();
         }
 
         public void GetUserStatus(string sessionId)

@@ -14,16 +14,16 @@ Login
 
 Alex:
 	# Intro (login or view)
-	# Start game
+	# Start game players = 4
 
 
-	# Determine Player with turn
+	# Determine Player with turn (1st player to join)
 	# Present Selection
 		# Present question board
 		# [UI] Accept Player Choice
 		# [UI] Disable Choice
 
-	# Present Challenge
+	# [UI]Present Challenge
 	# Wait for Response
 		# Sends buzzer
 		# Evaluate Player Response
@@ -58,20 +58,12 @@ $.connection.hub.start().done(function () {
 });
 
 var gameManager = {
-	MAX_PLAYERS : 3, // Maximum number of player excluding Sherlock
-
-
+    MAX_PLAYERS: 3, // Maximum number of player excluding Sherlock
 
 	init : function(){
 		
 
 	    // Check if hit max players
-
-
-
-
-
-
 
 		// Get SESSION
 		// Send session
