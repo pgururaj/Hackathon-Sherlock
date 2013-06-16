@@ -37,6 +37,11 @@ $(function () {
         $('#myResponse').html(response);
     }
 
+    game.client.sherlockResponse = function ( response)
+    {
+        //handle sherlock response.
+    }
+
     //
     game.client.getWinner = function (sessionId) {
         $('#challenge').html("The Winner is " + sessionId);
@@ -48,7 +53,6 @@ $(function () {
     }
 
     game.client.setCurrentPicker = function (name, sessionId) {
-
         console.log('session: ' + name);
         console.log('session: ' + sessionId);
     }

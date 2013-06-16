@@ -80,7 +80,8 @@ var gameManager = {
 		    alert('Minimum System Requirements not met!');
 		}
 		else {
-			session = TB.initSession(tok.sessionId);
+		    session = TB.initSession(tok.sessionId);
+            
 			session.addEventListener("sessionConnected", tok.sessionConnectedHandler);
 			session.addEventListener("streamCreated", tok.streamCreatedHandler);
 			session.connect(tok.apiKey, tok.token);
