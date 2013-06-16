@@ -51,7 +51,8 @@ namespace Hackathon.Sherlock.Alchemy
                         else
                         {
                             //new key, just add
-                            aggDict.Add(alchResponse.TextResponse, alchResponse);
+                            if(aggDict.Count<1)
+                                aggDict.Add(alchResponse.TextResponse, alchResponse);
                         }
                     }
 

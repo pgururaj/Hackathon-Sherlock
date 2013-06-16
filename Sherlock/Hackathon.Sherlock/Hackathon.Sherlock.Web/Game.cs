@@ -73,10 +73,16 @@ namespace Hackathon.Sherlock.Web
         {
             //it can't be the first one. get the unused one in that category
             var currentChallenge = AllGameChallenges.AllGameRounds.Where(a => a.Category == Game.CurrentCategory && a.Used==false).FirstOrDefault();
-            CurrentChallenge = currentChallenge;
-            currentChallenge.Used = true;
-            currentResponses = null;
-            return currentChallenge.Challenge;
+
+            if (currentChallenge != null)
+            {
+                CurrentChallenge = currentChallenge;
+                CurrentChallenge.Used = true;
+                currentResponses = null;
+                return currentChallenge.Challenge;
+            }
+            return string.Empty;
+
         }
 
         public static GameRound CurrentChallenge { get; set; }

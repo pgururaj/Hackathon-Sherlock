@@ -8,36 +8,25 @@
 <link href='http://fonts.googleapis.com/css?family=Neuton:400,700' rel='stylesheet' type='text/css'>
 
 <div class="container">
-
+    <div id="userAdded" style="color:white; font-weight:bold"></div>
     <div id="players" class="clearfix">
-		<div id="player1">
-			<div id="player_avatar_0" class="avatar"></div>
-			<form>
-				<textarea rows="3"></textarea>
-				<input type="submit" class='btn btn-primary'/>
-			</form>
-		</div>
-		<div id="player2">
-			<div id="player_avatar_1" class="avatar"></div>
-			<form>
-				<textarea rows="3"></textarea>
-				<input type="submit" class='btn btn-primary'/>
-			</form>
-		</div>
-		<div id="player3">
-			<div id="player_avatar_2" class="avatar"></div>
-			<form>
-				<textarea rows="3"></textarea>
-				<input type="submit" class='btn btn-primary'/>
-			</form>
-		</div>
+			<div id="myCamera" class="publisherContainer"></div>
+	<div id="subscribers"></div>
+
+
+
 		<div class="sherlock">
 			<div class="avatar"></div>
-			<form>
+
+            <span id="sherlockResponse"></span>
+@*			<form>
 				<textarea rows="3"></textarea>
 				<input type="submit" class='btn btn-primary'/>
-			</form>
+			</form>*@
 		</div>
+
+
+
 	</div>
 	<div id="board" class="">
 		<div id="selection" class="">
@@ -69,6 +58,8 @@
 			</div>
 		</div>
 	</div>
+
+    
 @*    <div>
         <input type="text" id="message" />
         <input type="button" id="sendmessage" value="Send" />

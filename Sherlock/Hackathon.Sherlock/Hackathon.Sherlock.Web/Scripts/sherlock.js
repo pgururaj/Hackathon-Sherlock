@@ -56,6 +56,7 @@ $.connection.hub.start().done(function () {
     game.server.getUserStatus(sessionId);
     game.server.getCurrentPicker();
     gameManager.init();
+
 });
 
 var gameManager = {

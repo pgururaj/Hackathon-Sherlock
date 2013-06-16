@@ -15,13 +15,13 @@ namespace Hackathon.Sherlock.Web
             
         }
 
-        public void GetSherlockResonses()
+        public void GetSherlockResponses()
         {
             SherlockUser sh = (SherlockUser)Game.Users.Where(a => a.SessionId == "sherlock").FirstOrDefault();
-            var response = sh.GetPossibleResponses(Game.CurrentChallenge);
-            System.Web.Script.Serialization.JavaScriptSerializer js = new System.Web.Script.Serialization.JavaScriptSerializer();
-            var data = js.Serialize(response);
-            Clients.All.sherlockResponse(data);
+            var response = sh.GetPossibleResponses(Game.CurrentChallenge).FirstOrDefault().Value;
+            //System.Web.Script.Serialization.JavaScriptSerializer js = new System.Web.Script.Serialization.JavaScriptSerializer();
+            //var data = js.Serialize(response);
+            Clients.All.sherlockResponse(response.TextResponse);
         }
 
         public void SendUserResponse(string sessionId, string response)
@@ -91,6 +91,8 @@ namespace Hackathon.Sherlock.Web
         public void AddUserToGame(string sessionId,string name)
         {
             Game.AddUser(new User{ SessionId=sessionId, Name=name, Money=0});
+
+            Clients.All.userAdded(sessionId, name);
             if (Game.Users.Count > 3)
                 StartGame();
         }

@@ -9,8 +9,13 @@ $(function () {
     };
 
 
+    //game.client.newChallenge = function (challenge) {
+    //    $('#challenge').html(challenge);
+    //};
+
+
     game.client.newChallenge = function (challenge) {
-        $('#challenge').html(challenge);
+        gameManager.presentChallenge(challenge);
     };
 
     game.client.isGameFull = function (value) {
@@ -21,6 +26,8 @@ $(function () {
     game.client.startGame = function () {
         //do stuff is game is full
         //TODO
+
+        //choose category
     }
 
     game.client.loadCategories = function (categories) {
@@ -37,9 +44,21 @@ $(function () {
         $('#myResponse').html(response);
     }
 
-    game.client.sherlockResponse = function ( response)
+    game.client.sherlockResponse = function (response)
     {
-        //handle sherlock response.
+        //var obj = JSON.parse(response);
+        
+        //for (var i = 0; i < obj.length; i++) {
+        $('#sherlockResponse').html('<strong>' + htmlEncode(response)
+    + '</strong>');
+        //}
+
+        //$('#sherlockResponse').html(response);
+    }
+
+    game.client.userAdded = function (sessId, name)
+    {
+        $('#userAdded').html(sessId + ' joined');
     }
 
     //
@@ -56,6 +75,7 @@ $(function () {
         console.log('session: ' + name);
         console.log('session: ' + sessionId);
     }
+
 
 
     //$('#message').focus();
