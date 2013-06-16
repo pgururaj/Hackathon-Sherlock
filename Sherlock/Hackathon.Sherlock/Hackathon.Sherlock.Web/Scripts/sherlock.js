@@ -54,6 +54,7 @@ $.connection.hub.start().done(function () {
     var sessionId = $('#sessionId').val();
     game.server.addUserToGame(sessionId, name);
     game.server.getUserStatus(sessionId);
+    game.server.getCurrentPicker();
     gameManager.init();
 });
 
@@ -61,7 +62,7 @@ var gameManager = {
     MAX_PLAYERS: 3, // Maximum number of player excluding Sherlock
 
 	init : function(){
-		
+	    gameManager.presentChallenge()
 
 	    // Check if hit max players
 
@@ -91,18 +92,26 @@ var gameManager = {
 
 	presentChallenge : function(){
 
-		var challenge = "This 19th hermit won the superbowl";
+		var challenge = "This 19th century hermit won the superbowl";
 		var response = "Julius Cesear Chavez";
 		$('#challenge').text(challenge);
 		$('#response').text(response).hide();
 
-		document.getElementById('presentor').classList.remove('hide');
+		$('#presentor').removeClass('hide');
 		setTimeout(function(){
-			document.getElementById('presentor').className = "";
+		    $('#presentor')[0].className = "";
 		},100);
 	},
-	registerBoardChoice : function(){
 
+	presentAnswer : function (){
+	    $('#challenge').hide();
+	    $('#response').show();
+	},
+
+	dismissAnswer: function () {
+	    $('#presentor').addClass('hide');
+	},
+	registerBoardChoice : function(){
 	},
 };
 

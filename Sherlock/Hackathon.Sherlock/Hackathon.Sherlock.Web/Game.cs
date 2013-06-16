@@ -17,6 +17,10 @@ namespace Hackathon.Sherlock.Web
             if (!gameStarted)
                 gameStarted = true;
 
+            Random rn = new Random();
+            var index=rn.Next(1,3);
+            CurrentPicker = Users.Where(a => a.IsPlayer).ToList()[index-1];
+
             currentResponses = null;
         }
 
@@ -33,6 +37,8 @@ namespace Hackathon.Sherlock.Web
 
 
         }
+
+        public static User CurrentPicker { get; set; }
 
         public static void AddUser(User user)
         {
@@ -64,8 +70,9 @@ namespace Hackathon.Sherlock.Web
         internal static string GetChallenge()
         {
             //it can't be the first one. get the unused one in that category
-            var currentChallenge = AllGameChallenges.AllGameRounds.Where(a => a.Category == Game.CurrentCategory).FirstOrDefault();
+            var currentChallenge = AllGameChallenges.AllGameRounds.Where(a => a.Category == Game.CurrentCategory && a.Used==false).FirstOrDefault();
             CurrentChallenge = currentChallenge;
+            currentChallenge.Used = true;
             currentResponses = null;
             return currentChallenge.Challenge;
         }
@@ -101,7 +108,9 @@ namespace Hackathon.Sherlock.Web
             {
                 user.Money = user.Money + CurrentChallenge.Reward;
                 LastWinner = user;
+                CurrentPicker = user;
             }
+            
         }
 
         public static string GetCorrectResponse()

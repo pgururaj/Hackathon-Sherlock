@@ -87,11 +87,16 @@ namespace Hackathon.Sherlock.Web
 
         public void GetUserStatus(string sessionId)
         {
-
             var cid = Context.ConnectionId;
             var userStatus = Game.GetUserStatus(sessionId);
             Clients.Client(cid).setUserStatus(userStatus);
+        }
 
+        public void GetCurrentPicker()
+        {
+            var currentPicker = Game.CurrentPicker;
+            if(currentPicker!=null)
+                Clients.All.setCurrentPicker(currentPicker.Name,currentPicker.SessionId);
         }
     }
 }   
