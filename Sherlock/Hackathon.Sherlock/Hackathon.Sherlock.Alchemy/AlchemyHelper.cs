@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using Hackathon.Sherlock.IronIO;
+using Hackathon.Sherlock.IronIO.Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -54,6 +56,66 @@ namespace Hackathon.Sherlock.Alchemy
                     }
 
                 }
+            }
+            catch (Exception e)
+            { }
+
+            return aggDict;
+        }
+
+        public Dictionary<string, AlchemyWeightedData> GetResponse(string SearchParam, string Category, bool userIronIO)
+        {
+            var sherlockRankList = new List<AlchemyWeightedData>();
+            var aggDict = new Dictionary<string, AlchemyWeightedData>();
+            try
+            {
+
+                //call google to get the search results - URL
+                GoogleHelper gHelp = new GoogleHelper();
+                IList<GoogleSearchResult> googleresultList = gHelp.GetSearchResults(SearchParam);
+
+                IList<AlchemyWeightedData> aggrgAlchemyWeight = new List<AlchemyWeightedData>();
+                IronMQHelper iron = new IronMQHelper();
+                var tasksToBeQueued = new QueueTaskRequest();
+                var listOfTasks = new List<QueueTaskRequest.Task>();
+                //iterate through the GoogleSearchResult and pass each URL to Alchemy to get a weihted score
+                foreach (var googleResult in googleresultList)
+                {
+                    //distribute the Alchemi calls to different IronIO worker threads.    
+                    var payload = new AlchemyPayloadToIron { Url = googleResult.GSearchResultURL, Category = Category };
+
+                    var taskToIron = new QueueTaskRequest.Task()
+                    {
+                        code_name = "alchemy",
+                        payload = JsonConvert.SerializeObject(payload)
+                    };
+
+
+                    listOfTasks.Add(taskToIron);
+                    tasksToBeQueued.tasks = listOfTasks;
+                    //var alchWtData = CallGetRankedNamedEntities(googleResult.GSearchResultURL, Category);
+                    //foreach (var alchResponse in alchWtData)
+                    //{
+                    //    //if (null != aggDict[alchResponse.TextResponse])
+                    //    if (aggDict.ContainsKey(alchResponse.TextResponse))
+                    //    {
+                    //        //key already exists - modify
+                    //        var toModifyAlchemyWtData = aggDict[alchResponse.TextResponse];
+                    //        toModifyAlchemyWtData.RelevanceScore = (toModifyAlchemyWtData.RelevanceScore + alchResponse.RelevanceScore) / 2;
+                    //        aggDict[alchResponse.TextResponse] = toModifyAlchemyWtData;
+                    //    }
+                    //    else
+                    //    {
+                    //        //new key, just add
+                    //        aggDict.Add(alchResponse.TextResponse, alchResponse);
+                    //    }
+                    //}
+
+                }
+                QueueTaskResponse response = iron.queue_tasks("51bbe549ed3d7679f5000282", "BXxvffaWJeFwM4WTo52mt1x9OXY", tasksToBeQueued);
+
+                //get output from workers and aggregate the data
+
             }
             catch (Exception e)
             { }

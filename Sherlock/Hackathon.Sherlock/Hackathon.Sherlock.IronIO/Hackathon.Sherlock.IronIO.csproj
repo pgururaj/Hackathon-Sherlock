@@ -52,6 +52,7 @@
     <Compile Include="QueueTask.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="SherlockWorkers\alchemy.worker" />
     <None Include="SherlockWorkers\iron.json" />
     <None Include="SherlockWorkers\smart.worker" />
   </ItemGroup>

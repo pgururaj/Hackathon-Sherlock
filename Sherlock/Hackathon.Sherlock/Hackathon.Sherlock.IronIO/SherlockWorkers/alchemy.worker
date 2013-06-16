@@ -1,0 +1,6 @@
+runtime 'mono'
+exec 'Hackathon.AlchemyWorker.Console.exe'
+
+file 'Hackathon.Sherlock.Alchemy.dll'
+file 'Hackathon.Sherlock.IronIO.dll'
+file 'Newtonsoft.Json.dll'

@@ -4,15 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{85099A32-ADFE-4A15-A173-FA130111C2A1}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{C9132F3C-2935-405A-8599-6B60F9212301}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Hackathon.Sherlock.Alchemy</RootNamespace>
-    <AssemblyName>Hackathon.Sherlock.Alchemy</AssemblyName>
+    <RootNamespace>Hackathon.AlchemyWorker.Console</RootNamespace>
+    <AssemblyName>Hackathon.AlchemyWorker.Console</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -22,6 +23,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -31,7 +33,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\Resources\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\..\..\..\Hackathon-Sherlock\Sherlock\Hackathon.Sherlock\Resources\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -42,18 +44,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AlchemyHelper.cs" />
-    <Compile Include="AlchemyPayloadToIron.cs" />
-    <Compile Include="AlchemyResponse.cs" />
-    <Compile Include="Class1.cs" />
-    <Compile Include="GoogleHelper.cs" />
+    <Compile Include="AlchemyPaylaod.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="WebHelper.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Hackathon.Sherlock.IronIO\Hackathon.Sherlock.IronIO.csproj">
-      <Project>{e2c0da48-d29a-45c1-8063-6dc77de3c1bb}</Project>
-      <Name>Hackathon.Sherlock.IronIO</Name>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Hackathon.Sherlock.Alchemy\Hackathon.Sherlock.Alchemy.csproj">
+      <Project>{85099a32-adfe-4a15-a173-fa130111c2a1}</Project>
+      <Name>Hackathon.Sherlock.Alchemy</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
