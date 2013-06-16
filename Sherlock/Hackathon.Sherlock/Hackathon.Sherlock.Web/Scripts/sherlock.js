@@ -62,7 +62,7 @@ var gameManager = {
     MAX_PLAYERS: 3, // Maximum number of player excluding Sherlock
 
 	init : function(){
-		
+	    gameManager.presentChallenge()
 
 	    // Check if hit max players
 
@@ -92,7 +92,7 @@ var gameManager = {
 
 	presentChallenge : function(){
 
-		var challenge = "This 19th hermit won the superbowl";
+		var challenge = "This 19th century hermit won the superbowl";
 		var response = "Julius Cesear Chavez";
 		$('#challenge').text(challenge);
 		$('#response').text(response).hide();

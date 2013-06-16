@@ -93,12 +93,18 @@ body .container {
 	position: absolute;
 	top: 200px;
 	left: 325px;
-	width:440px;
-	height:300px;
+	width:380px; /* 440 */
+	height:240px; /* 320 */
+    padding: 40px 30px 0px;
 	border-radius:15px;
 	box-shadow: 0px 0px 60px 30px #000;
 
-
+    color: #fff;
+    text-transform: uppercase;
+    font-family: 'Neuton','Times New Roman', serif;;
+    font-weight:bold;
+    font-size: 40px; 
+	text-shadow: 1px 1px 2px #000;
 
 	background: -webkit-radial-gradient(center, ellipse cover, #88f 0%, #33a 100%);
 	-webkit-transform-origin: 0 0;
