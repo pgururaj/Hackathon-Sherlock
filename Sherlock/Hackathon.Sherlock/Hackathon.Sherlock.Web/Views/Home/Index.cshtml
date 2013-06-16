@@ -8,6 +8,30 @@
 
 <h2>Index</h2>
 <div class="container">
+<<<<<<< HEAD
+    <input type="text" id="message" />
+    <input type="button" id="sendmessage" value="Send" />
+    <input type="button" id="newChallenge" value="New Challenge" />
+    <input type="button" id="startGame" value="Start Game" />
+    <input type="button" id="getCategories" value="Get Categories" />
+    <input type="hidden" id="displayname" />
+
+    <input type="button" id="getCurrentCategory" value="Get Current Category" />
+
+
+    <div>select category:
+        <input type="text" id="category" />
+        <input type="button" id="setCategory" value="Set Category" />
+    </div>
+    <div id="challenge"></div>
+    <ul id="discussion">
+    </ul>
+
+    <div>Response:
+        <input type="text" id="response" />
+        <input type="button" id="sendResponse" value="Send Response" />
+    </div>
+=======
     <div id="players" class="clearfix">
 		<div id="player1">
 			<div id="player_avatar_0" class="avatar"></div>
@@ -94,6 +118,7 @@
     
 
 
+>>>>>>> cfbaed61f0749d2bdb2008e717f365c4443a2508
 
        <div>My response: <div id="myResponse"></div></div>
     </div>
@@ -102,9 +127,7 @@
 </div>
 
 
-
-<input id="sessionId" type="hidden" value="@Session.SessionID" /> 
-
+<input id="sessionId" type="hidden" value="@Session.SessionID" />
 
 @section scripts {
     <!--Script references. -->
@@ -170,9 +193,17 @@
             
             $('#message').focus();
             // Start the connection.
+<<<<<<< HEAD
+            $.connection.hub.start().done(function () {
+                //game.server.sendUserResponse();
+                
+                var name = prompt("What is your name?", "");
+
+=======
             //$.connection.hub.start().done(function () {
                 
             //    var name = "abid";
+>>>>>>> cfbaed61f0749d2bdb2008e717f365c4443a2508
                 
             //    var sessionId = $('#sessionId').val();
             //    //var name = 'fake name';
