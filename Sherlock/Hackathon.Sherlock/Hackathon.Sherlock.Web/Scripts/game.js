@@ -8,14 +8,10 @@ $(function () {
             + '</strong>: ' + htmlEncode(response) + '</li>');
     };
 
-
-    //game.client.newChallenge = function (challenge) {
-    //    $('#challenge').html(challenge);
-    //};
-
-
     game.client.newChallenge = function (challenge) {
-        gameManager.presentChallenge(challenge);
+        challenge = JSON.parse(challenge);
+        console.log(challenge);
+        gameManager.presentChallenge(challenge)
     };
 
     game.client.isGameFull = function (value) {
@@ -26,8 +22,6 @@ $(function () {
     game.client.startGame = function () {
         //do stuff is game is full
         //TODO
-
-        //choose category
     }
 
     game.client.loadCategories = function (categories) {
@@ -41,29 +35,18 @@ $(function () {
 
     //
     game.client.getUserResponse = function (sessionId, response) {
-        $('#myResponse').html(response);
+        gameManager.handlePlayerResponse(sessionId);
     }
 
-    game.client.sherlockResponse = function (response)
+    game.client.sherlockResponse = function ( response)
     {
-        //var obj = JSON.parse(response);
-        
-        //for (var i = 0; i < obj.length; i++) {
-        $('#sherlockResponse').html('<strong>' + htmlEncode(response)
-    + '</strong>');
-        //}
-
-        //$('#sherlockResponse').html(response);
-    }
-
-    game.client.userAdded = function (sessId, name)
-    {
-        $('#userAdded').html(sessId + ' joined');
+        sherlock.answerBox.text(response);
     }
 
     //
     game.client.getWinner = function (sessionId) {
-        $('#challenge').html("The Winner is " + sessionId);
+        $('#challenge').text("The Winner is " + sessionId);
+        gameManager.setCurrentPicker();
     }
 
     game.client.setUserStatus = function (status) {
@@ -75,7 +58,6 @@ $(function () {
         console.log('session: ' + name);
         console.log('session: ' + sessionId);
     }
-
 
 
     //$('#message').focus();

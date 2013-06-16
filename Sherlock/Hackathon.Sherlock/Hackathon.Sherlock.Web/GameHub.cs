@@ -11,7 +11,9 @@ namespace Hackathon.Sherlock.Web
     {
         public void SendChallenge()
         {
-            Clients.All.newChallenge(Game.GetChallenge());
+            System.Web.Script.Serialization.JavaScriptSerializer js = new System.Web.Script.Serialization.JavaScriptSerializer();
+            var data = js.Serialize(Game.GetChallenge());
+            Clients.All.newChallenge(data);
             
         }
 
@@ -24,10 +26,10 @@ namespace Hackathon.Sherlock.Web
             Clients.All.sherlockResponse(response.TextResponse);
         }
 
-        public void SendUserResponse(string sessionId, string response)
+       /* public void SendUserResponse(string sessionId, string response)
         {
             Clients.All.handleResponse(sessionId, response);
-        }
+        }*/
 
 
         public void IsGameFull()

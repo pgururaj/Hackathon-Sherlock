@@ -41,12 +41,13 @@ namespace Hackathon.Sherlock.IronIO
             }
         }
 
-        public string GetTaskResponse(string ProjectId, string TaskId)
+        public string GetTaskResponse(string ProjectId, string TaskId, string oauthToken)
         {
+            //https://worker-aws-us-east-1.iron.io/2/projects/51bbe549ed3d7679f5000282/tasks/51bd71110865524a8c7c5cca?oauth=BXxvffaWJeFwM4WTo52mt1x9OXY
             using (var web = new WebClient())
             {
                 web.Headers.Add("Referrer", "http://your-website-here/");
-                var result = web.DownloadString(String.Format("https://hud.iron.io/tq/projects/{0}/tasks/{1}/log", ProjectId, TaskId));
+                var result = web.DownloadString(String.Format("https://worker-aws-us-east-1.iron.io/2/projects/{0}/tasks/{1}?oauth={2}", ProjectId, TaskId, oauthToken));
 
                 return result;
             }

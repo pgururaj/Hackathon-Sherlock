@@ -8,26 +8,7 @@
 <link href='http://fonts.googleapis.com/css?family=Neuton:400,700' rel='stylesheet' type='text/css'>
 
 <div class="container">
-    <div id="userAdded" style="color:white; font-weight:bold"></div>
-    <div id="players" class="clearfix">
-			<div id="myCamera" class="publisherContainer"></div>
-	<div id="subscribers"></div>
 
-
-
-		<div class="sherlock">
-			<div class="avatar"></div>
-
-            <span id="sherlockResponse"></span>
-@*			<form>
-				<textarea rows="3"></textarea>
-				<input type="submit" class='btn btn-primary'/>
-			</form>*@
-		</div>
-
-
-
-	</div>
 	<div id="board" class="">
 		<div id="selection" class="">
 			<div class="row  header">
@@ -58,8 +39,22 @@
 			</div>
 		</div>
 	</div>
-
     
+    <div id="players" class="clearfix">
+		<div id="player1">
+			<div id="player_avatar_0" class="avatar"></div>
+			<form>
+				<textarea id="playerAnswer" rows="3"></textarea>
+				<button id="playerSubmit" class='btn btn-primary'>Submit</button>
+			</form>
+		</div>
+		<div class="sherlock">
+			<div class="avatar"></div>
+			<form>
+				<textarea id="sherlockAnswer" rows="3"></textarea>
+			</form>
+		</div>
+	</div>
 @*    <div>
         <input type="text" id="message" />
         <input type="button" id="sendmessage" value="Send" />
@@ -107,7 +102,7 @@
 
 
     <script src="http://static.opentok.com/v1.1/js/TB.min.js"></script>
+    <script src="~/Scripts/game.js"></script>
     <script src="~/Scripts/bootstrap.js"></script>
     <script src="~/Scripts/sherlock.js"></script>
-    <script src="~/Scripts/game.js"></script>
 }
