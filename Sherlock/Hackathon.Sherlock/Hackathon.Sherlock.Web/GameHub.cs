@@ -95,7 +95,8 @@ namespace Hackathon.Sherlock.Web
         public void GetCurrentPicker()
         {
             var currentPicker = Game.CurrentPicker;
-            Clients.All.setCurrentPicker(currentPicker.Name,currentPicker.SessionId);
+            if(currentPicker!=null)
+                Clients.All.setCurrentPicker(currentPicker.Name,currentPicker.SessionId);
         }
     }
 }   

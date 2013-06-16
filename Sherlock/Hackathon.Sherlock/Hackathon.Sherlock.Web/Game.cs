@@ -18,7 +18,7 @@ namespace Hackathon.Sherlock.Web
                 gameStarted = true;
 
             Random rn = new Random();
-            var index=rn.Next(3);
+            var index=rn.Next(1,3);
             CurrentPicker = Users.Where(a => a.IsPlayer).ToList()[index-1];
 
             currentResponses = null;
