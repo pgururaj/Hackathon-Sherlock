@@ -1,0 +1,2 @@
+﻿runtime 'mono'
+exec 'HelloSherlock.Console.exe'
