@@ -11,6 +11,19 @@ namespace Hackathon.Sherlock.Web
         public static readonly int  MaxUsers=4;
         public static IList<User> Users = new List<User>();
 
+        private static bool gameStarted=false;
+        public static void StartGame()
+        {
+            if (!gameStarted)
+                gameStarted = true;
+
+            currentResponses = null;
+        }
+
+        public static bool HasGameStarted()
+        {
+            return gameStarted;
+        }
 
         public static void InitializeGame()
         {
@@ -33,7 +46,71 @@ namespace Hackathon.Sherlock.Web
 
         internal static GameRound GetNextRound()
         {
-            throw new NotImplementedException();
+            return new GameRound();
+        }
+
+
+
+        internal static string GetChallenge()
+        {
+            //it can't be the first one. get the unused one in that category
+            var currentChallenge = AllGameChallenges.AllGameRounds.Where(a => a.Category == Game.CurrentCategory).FirstOrDefault();
+            CurrentChallenge = currentChallenge;
+            currentResponses = null;
+            return currentChallenge.Challenge;
+        }
+
+        public static GameRound CurrentChallenge { get; set; }
+
+        //dictionary of sessionIds and responses
+        public static Dictionary<string, string> currentResponses = new Dictionary<string, string>();
+        public static Dictionary<string, string> CurrentResponses{
+            get { return currentResponses; }
+            set
+            {
+                if (currentResponses == null)
+                    currentResponses = new Dictionary<string, string>();
+                currentResponses = value; 
+            }
+        }
+
+
+        public static void ReceiveResponse(string sessionId,string response)
+        {
+            if (!CurrentResponses.ContainsKey(sessionId))
+            {
+                CurrentResponses.Add(sessionId, response);
+            }
+        }
+
+        public static User LastWinner;
+        public static void SetChallengeWinnner(string sessionId)
+        {
+            var user = Users.Where(a => a.SessionId == sessionId).FirstOrDefault();
+            if (user != null)
+            {
+                user.Money = user.Money + CurrentChallenge.Reward;
+                LastWinner = user;
+            }
+        }
+
+        public static string GetCorrectResponse()
+        {
+            return CurrentChallenge.CorrectResponse;
+        }
+
+
+        public static User GetChallengeWinnner()
+        {
+            return LastWinner;
+        }
+
+
+        internal static void EndRound()
+        {
+            LastWinner = null;
+            CurrentResponses = null;
+            CurrentChallenge = null;
         }
     }
 }

@@ -7,11 +7,32 @@
     <input type="text" id="message" />
     <input type="button" id="sendmessage" value="Send" />
     <input type="button" id="newChallenge" value="New Challenge" />
+    <input type="button" id="startGame" value="Start Game" />
+    <input type="button" id="getCategories" value="Get Categories" />
     <input type="hidden" id="displayname" />
 
+    <input type="button" id="getCurrentCategory" value="Get Current Category" />
+
+
+    <div>select category:
+        <input type="text" id="category" />
+        <input type="button" id="setCategory" value="Set Category" />
+    </div>
     <div id="challenge"></div>
     <ul id="discussion">
     </ul>
+
+    <div>Response:
+        <input type="text" id="response" />
+        <input type="button" id="sendResponse" value="Send Response" />
+    </div>
+    
+
+
+
+   <div>My response: <div id="myResponse"></div></div>
+
+
 </div>
 
 
@@ -46,14 +67,42 @@
             game.client.isGameFull = function (value) {
                 //do stuff is game is full
             }
+
+
+            game.client.startGame = function() {
+                //do stuff is game is full
+            }
+
+            game.client.loadCategories = function (categories) {
+                $('#challenge').html(categories);
+            }
+
+            game.client.getCurrentCategory = function (currentCategory) {
+                $('#challenge').html(currentCategory);
+            }
+
+
+            //
+            game.client.getUserResponse = function (sessionId,response) {
+                $('#myResponse').html(response);
+            }
+
+            //
+            game.client.getWinner = function (sessionId) {
+                $('#challenge').html("The Winner is " + sessionId);
+            }
  
             
             $('#message').focus();
             // Start the connection.
             $.connection.hub.start().done(function () {
-                game.server.sendUserResponse();
+                //game.server.sendUserResponse();
+
+                
                 
                 var sessionId = $('#sessionId').val();
+                var name = 'fake name';
+                game.server.addUserToGame(sessionId,name);
                 $('#sendmessage').click(function () {                    
                     game.server.sendUserResponse(sessionId, $('#message').val());
                     $('#message').val('').focus();
@@ -62,7 +111,27 @@
                 $('#newChallenge').click(function () {
                     game.server.sendChallenge();
                 });
+
+                $('#startGame').click(function () {
+                    game.server.startGame();
+                });
                 
+                $('#getCategories').click(function () {
+                    game.server.getCategories();
+                });
+
+
+                $('#getCurrentCategory').click(function () {
+                    game.server.getCurrentCategory();
+                });
+
+                $('#setCategory').click(function () {
+                    game.server.setCategory($('#category').val());
+                });
+
+                $('#sendResponse').click(function () {
+                    game.server.sendResponse($('#sessionId').val(), $('#response').val());
+                });
 
             });
         });
