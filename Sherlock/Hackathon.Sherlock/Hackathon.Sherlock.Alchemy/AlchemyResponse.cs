@@ -24,7 +24,7 @@ namespace Hackathon.Sherlock.Alchemy
     public class AlchemyWeightedData
     {
         public string TextResponse { get; set; }
-        public string RelevanceScore {get; set; }
+        public double RelevanceScore {get; set; }
         public int Order { get; set; }
     
     }
