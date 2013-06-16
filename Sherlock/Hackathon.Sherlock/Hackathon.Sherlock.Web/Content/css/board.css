@@ -98,6 +98,7 @@ body .container {
     padding: 40px 30px 0px;
 	border-radius:15px;
 	box-shadow: 0px 0px 60px 30px #000;
+    opacity:1;
 
     color: #fff;
     text-transform: uppercase;
@@ -122,6 +123,8 @@ body .container {
 #presentor.answer24 {-webkit-transform: translate3d(221px,261px,0) scaleX(.25) scaleY(.333);}
 
 #presentor.hide{
+    opacity:0;
+    pointer-events:none;
 	-webkit-transition:none;
 }
 

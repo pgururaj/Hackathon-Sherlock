@@ -97,13 +97,21 @@ var gameManager = {
 		$('#challenge').text(challenge);
 		$('#response').text(response).hide();
 
-		document.getElementById('presentor').classList.remove('hide');
+		$('#presentor').removeClass('hide');
 		setTimeout(function(){
-			document.getElementById('presentor').className = "";
+		    $('#presentor')[0].className = "";
 		},100);
 	},
-	registerBoardChoice : function(){
 
+	presentAnswer : function (){
+	    $('#challenge').hide();
+	    $('#response').show();
+	},
+
+	dismissAnswer: function () {
+	    $('#presentor').addClass('hide');
+	},
+	registerBoardChoice : function(){
 	},
 };
 
