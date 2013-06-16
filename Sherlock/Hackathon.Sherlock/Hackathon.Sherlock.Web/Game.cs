@@ -21,6 +21,8 @@ namespace Hackathon.Sherlock.Web
             var index=rn.Next(1,3);
             CurrentPicker = Users.Where(a => a.IsPlayer).ToList()[index-1];
 
+            AddUser(new SherlockUser { Name = "Sherlock", SessionId = "sherlock", Money = 0, IsPlayer = true });
+
             currentResponses = null;
         }
 

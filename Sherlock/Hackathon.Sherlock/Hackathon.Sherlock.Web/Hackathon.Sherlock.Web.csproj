@@ -154,7 +154,6 @@
     <Compile Include="Models\Sherlock.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Sherlock.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\css\board.css" />

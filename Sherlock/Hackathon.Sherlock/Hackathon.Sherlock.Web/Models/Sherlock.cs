@@ -6,11 +6,14 @@ using Hackathon.Sherlock.Alchemy;
 
 namespace Hackathon.Sherlock.Web.Models
 {
-    public class Sherlock:User
+    public class SherlockUser:User
     {
-        public Dictionary<string, AlchemyWeightedData> GetPossibleResponses()
+        public Dictionary<string, AlchemyWeightedData> GetPossibleResponses(GameRound gr)
         {
-            return new Dictionary<string, AlchemyWeightedData>();
+            AlchemyHelper ah = new AlchemyHelper();
+            return ah.GetResponse(gr.Challenge, gr.Category.ToString());
         }
+
+        
     }
 }

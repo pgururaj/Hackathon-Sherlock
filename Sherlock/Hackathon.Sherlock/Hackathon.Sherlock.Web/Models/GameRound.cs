@@ -16,7 +16,7 @@ namespace Hackathon.Sherlock.Web.Models
 
     public enum Category
     {
-        People,
-        Places
+        Person,
+        City
     }
 }

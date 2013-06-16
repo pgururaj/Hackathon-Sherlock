@@ -12,6 +12,16 @@ namespace Hackathon.Sherlock.Web
         public void SendChallenge()
         {
             Clients.All.newChallenge(Game.GetChallenge());
+            
+        }
+
+        public void GetSherlockResonses()
+        {
+            SherlockUser sh = (SherlockUser)Game.Users.Where(a => a.SessionId == "sherlock").FirstOrDefault();
+            var response = sh.GetPossibleResponses(Game.CurrentChallenge);
+            System.Web.Script.Serialization.JavaScriptSerializer js = new System.Web.Script.Serialization.JavaScriptSerializer();
+            var data = js.Serialize(response);
+            Clients.All.sherlockResponse(data);
         }
 
         public void SendUserResponse(string sessionId, string response)
