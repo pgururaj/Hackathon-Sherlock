@@ -141,5 +141,23 @@ namespace Hackathon.Sherlock.Web
         }
 
 
+        public static User Winner { get; set; }
+
+        internal static User GetGameWinner()
+        {
+            var winner = Users.Where(a => a.IsPlayer).OrderByDescending(b => b.Money).FirstOrDefault();
+            if (winner != null)
+                return winner;
+            return null;
+        }
+
+        internal static void EndGame()
+        {
+
+
+            EndRound();
+            Users = null;
+            gameStarted = false;
+        }
     }
 }

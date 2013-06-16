@@ -98,5 +98,18 @@ namespace Hackathon.Sherlock.Web
             if(currentPicker!=null)
                 Clients.All.setCurrentPicker(currentPicker.Name,currentPicker.SessionId);
         }
+
+        public void GetGameWinner()
+        {
+            var winner = Game.GetGameWinner();
+            if (winner != null)
+                Clients.All.setWinner(winner.SessionId);
+        }
+
+        public void EndGame()
+        {
+            Game.EndGame();
+            Clients.All.endGame();
+        }
     }
 }   
