@@ -10,7 +10,6 @@ $(function () {
 
 
     game.client.newChallenge = function (challenge) {
-        console.log(challenge);
         $('#challenge').html(challenge);
     };
 

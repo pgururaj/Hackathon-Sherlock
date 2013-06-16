@@ -62,12 +62,16 @@ var gameManager = {
     MAX_PLAYERS: 3, // Maximum number of player excluding Sherlock
 
 	init : function(){
-	    gameManager.presentChallenge();
 
 	    // Check if hit max players
 
 		// Get SESSION
-		// Send session
+	    // Send session
+
+	    /* UI */
+	    $('#selection .answer .cell').click(function (event) {
+	        $(this).addClass("inactive");
+	    });
 
 		/*  Tokbox */
 		TB.addEventListener("exception", tok.exceptionHandler);
@@ -89,7 +93,9 @@ var gameManager = {
 		}
 		//*/
 	},
-
+	presentBoard : function(){
+	    $('#selection').addClass('show');
+	},
 	presentChallenge : function(){
 
 		var challenge = "This 19th century hermit won the superbowl";
@@ -111,6 +117,9 @@ var gameManager = {
 	dismissAnswer: function () {
 	    $('#presentor').addClass('hide');
 	},
+	disableCell : function () {
+
+	},
 	registerBoardChoice : function(){
 	},
 };
@@ -119,7 +128,6 @@ var user = {
 	canPlay : false,
 	sessionID : "",
 	streamID : "",
-	askName : function(){},
 	declareTurn : function(){},
 };
 
