@@ -10,7 +10,7 @@ $(function () {
 
 
     game.client.newChallenge = function (challenge) {
-
+        console.log(challenge);
         $('#challenge').html(challenge);
     };
 
@@ -50,6 +50,7 @@ $(function () {
 
     game.client.setCurrentPicker = function (name, sessionId) {
 
+        console.log('session: ' + name);
         console.log('session: ' + sessionId);
     }
 

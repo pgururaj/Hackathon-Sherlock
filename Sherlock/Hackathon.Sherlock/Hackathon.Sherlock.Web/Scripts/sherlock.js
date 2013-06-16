@@ -62,7 +62,7 @@ var gameManager = {
     MAX_PLAYERS: 3, // Maximum number of player excluding Sherlock
 
 	init : function(){
-	    gameManager.presentChallenge()
+	    gameManager.presentChallenge();
 
 	    // Check if hit max players
 
