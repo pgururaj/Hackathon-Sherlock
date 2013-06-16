@@ -1,0 +1,162 @@
+.clearfix:after {
+	content: ".";
+	display: block;
+	clear: both;
+	visibility: hidden;
+	line-height: 0;
+	height: 0;
+}
+
+.clearfix {
+	display: inline-block;
+}
+ 
+html[xmlns] .clearfix {
+	display: block;
+}
+ 
+* html .clearfix {
+	height: 1%;
+}
+
+
+/***** Content *****/
+
+body {
+	background: black;
+}
+body .container {
+	text-align: center;
+	position: relative;
+}
+
+#board {
+	position: relative;
+	background: url(../../Content/img/slide_bg.jpg) top center black no-repeat;
+	width: 1090px;
+	float: left;
+}
+
+/*** Selection ***/
+#selection {
+	background: #000;
+	position: relative;
+	display: table;
+	margin: 50px auto 0 auto;
+	padding-left: 28px;
+}
+
+#selection .row {
+	clear:both;
+}
+
+#selection .cell {
+	display: table-cell;
+	float: left;
+	height: 100px;
+	line-height: 100px;
+	width: 110px;
+	border-radius:5px;
+	margin:2px;
+
+	background: #00f;
+	background: -webkit-radial-gradient(center, ellipse cover, #88f 0%, #33a 100%);
+	color: yellow;
+	font-family: 'Pathway Gothic One', sans-serif;
+	font-size: 50px;
+	font-weight:bolder;
+	text-shadow: 1px 1px 2px #000;
+	text-align: center;
+}
+
+#selection .cell span {
+	font-size:30px;
+	position: relative;
+	top: -5px;
+	left: -2px;
+}
+#selection .header .cell {
+	height: 80px;
+	line-height: 85px;
+	margin-bottom:15px;
+
+	font-family: sans-serif;
+	font-weight:bold;
+	font-size:20px;
+	color:#fff;
+	text-transform: uppercase;
+}
+
+
+/*** PRESENTOR ***/
+#presentor {
+	position: absolute;
+	top: 200px;
+	left: 325px;
+	width:440px;
+	height:300px;
+	border-radius:15px;
+	box-shadow: 0px 0px 60px 30px #000;
+
+
+
+	background: -webkit-radial-gradient(center, ellipse cover, #88f 0%, #33a 100%);
+	-webkit-transform-origin: 0 0;
+	-webkit-transition:all .25s linear;
+}
+
+
+#presentor.answer11 {-webkit-transform: translate3d(107px,-51px,0) scaleX(.25) scaleY(.333);}
+#presentor.answer12 {-webkit-transform: translate3d(107px,53px,0) scaleX(.25) scaleY(.333);}
+#presentor.answer13 {-webkit-transform: translate3d(107px,157px,0) scaleX(.25) scaleY(.333);}
+#presentor.answer14 {-webkit-transform: translate3d(107px,261px,0) scaleX(.25) scaleY(.333);}
+#presentor.answer21 {-webkit-transform: translate3d(221px,-51px,0) scaleX(.25) scaleY(.333);}
+#presentor.answer22 {-webkit-transform: translate3d(221px,53px,0) scaleX(.25) scaleY(.333);}
+#presentor.answer23 {-webkit-transform: translate3d(221px,157px,0) scaleX(.25) scaleY(.333);}
+#presentor.answer24 {-webkit-transform: translate3d(221px,261px,0) scaleX(.25) scaleY(.333);}
+
+#presentor.hide{
+	-webkit-transition:none;
+}
+
+/*** PLAYERS ***/
+#players {
+	float:left;
+	margin:50px auto 0 auto;
+}
+
+#players div {
+	margin-bottom: 30px;
+	clear: both;
+}
+
+#players div form {
+	float:left;
+}
+
+
+#players div form textarea {
+	display: block;
+}
+
+#players .avatar {
+	height: 150px;
+	width: 220px;
+	float: left;
+	margin-right: 30px; 
+
+	background: #fff;
+	border: solid 5px #fff;
+	border-radius: 5px;
+}
+#players .avatar:last-child (){
+	margin-right:0;
+}
+
+#players .sherlock .avatar{
+	background: url(../../Content/img/sherlock.png) #fff no-repeat center center;
+}
+
+#players .active {
+
+}
