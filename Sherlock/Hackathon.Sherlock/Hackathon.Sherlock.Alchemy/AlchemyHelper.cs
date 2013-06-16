@@ -17,6 +17,45 @@ namespace Hackathon.Sherlock.Alchemy
         private string URLGetConstraintQuery = "http://access.alchemyapi.com/calls/url/URLGetConstraintQuery";
         private string URLGetText = "http://access.alchemyapi.com/calls/url/URLGetText";
 
+        public Dictionary<string, AlchemyWeightedData> GetResponse(string SearchParam, string Category)
+        {
+            var sherlockRankList = new List<AlchemyWeightedData>();
+
+            //call google to get the search results - URL
+            GoogleHelper gHelp = new GoogleHelper();
+            IList<GoogleSearchResult> googleresultList = gHelp.GetSearchResults(SearchParam);
+
+            IList<AlchemyWeightedData> aggrgAlchemyWeight = new List<AlchemyWeightedData>();
+
+            var aggDict = new Dictionary<string, AlchemyWeightedData>();
+
+            //iterate through the GoogleSearchResult and pass each URL to Alchemy to get a weihted score
+            foreach (var googleResult in googleresultList)
+            {
+                var alchWtData = CallGetRankedNamedEntities(googleResult.GSearchResultURL, Category);
+                foreach (var alchResponse in alchWtData)
+                {
+                    //if (null != aggDict[alchResponse.TextResponse])
+                    if (aggDict.ContainsKey(alchResponse.TextResponse))
+                    {
+                        //key already exists - modify
+                        var toModifyAlchemyWtData = aggDict[alchResponse.TextResponse];
+                        toModifyAlchemyWtData.RelevanceScore = (toModifyAlchemyWtData.RelevanceScore + alchResponse.RelevanceScore) / 2;
+                        aggDict[alchResponse.TextResponse] = toModifyAlchemyWtData;
+                    }
+                    else
+                    {
+                        //new key, just add
+                        aggDict.Add(alchResponse.TextResponse, alchResponse);
+                    }
+                }
+
+            }
+
+
+            return aggDict;
+        }
+
         public void CallGetRankedKeywordAPI(string ClientURL)
         {
             StringBuilder sb = new StringBuilder();
@@ -42,7 +81,7 @@ namespace Hackathon.Sherlock.Alchemy
 
                 if (item.type == Category)
                 {
-                    var alchWtData = new AlchemyWeightedData { TextResponse = item.text, RelevanceScore = item.relevance, Order = counter };
+                    var alchWtData = new AlchemyWeightedData { TextResponse = item.text, RelevanceScore = double.Parse(item.relevance.ToString()), Order = counter };
                     sherlockRankList.Add(alchWtData);
                     counter++;
                 }
