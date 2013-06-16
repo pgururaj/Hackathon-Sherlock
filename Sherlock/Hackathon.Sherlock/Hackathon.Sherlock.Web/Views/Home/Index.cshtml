@@ -160,52 +160,53 @@
             game.client.getWinner = function (sessionId) {
                 $('#challenge').html("The Winner is " + sessionId);
             }
+
+            game.client.setUserStatus = function (status) {
+                user.canPlay = status;
+                console.log(user.canPlay);
+            }
  
             
             $('#message').focus();
             // Start the connection.
-            $.connection.hub.start().done(function () {
-                //game.server.sendUserResponse();
-
+            //$.connection.hub.start().done(function () {
                 
-
-                var name = prompt("What is your name?", "");
-
+            //    var name = "abid";
                 
-                var sessionId = $('#sessionId').val();
-                //var name = 'fake name';
-                game.server.addUserToGame(sessionId,name);
-                $('#sendmessage').click(function () {                    
-                    game.server.sendUserResponse(sessionId, $('#message').val());
-                    $('#message').val('').focus();
-                });
+            //    var sessionId = $('#sessionId').val();
+            //    //var name = 'fake name';
+            //    game.server.addUserToGame(sessionId,name);
+            //    $('#sendmessage').click(function () {                    
+            //        game.server.sendUserResponse(sessionId, $('#message').val());
+            //        $('#message').val('').focus();
+            //    });
 
-                $('#newChallenge').click(function () {
-                    game.server.sendChallenge();
-                });
+            //    $('#newChallenge').click(function () {
+            //        game.server.sendChallenge();
+            //    });
 
-                $('#startGame').click(function () {
-                    game.server.startGame();
-                });
+            //    $('#startGame').click(function () {
+            //        game.server.startGame();
+            //    });
                 
-                $('#getCategories').click(function () {
-                    game.server.getCategories();
-                });
+            //    $('#getCategories').click(function () {
+            //        game.server.getCategories();
+            //    });
 
 
-                $('#getCurrentCategory').click(function () {
-                    game.server.getCurrentCategory();
-                });
+            //    $('#getCurrentCategory').click(function () {
+            //        game.server.getCurrentCategory();
+            //    });
 
-                $('#setCategory').click(function () {
-                    game.server.setCategory($('#category').val());
-                });
+            //    $('#setCategory').click(function () {
+            //        game.server.setCategory($('#category').val());
+            //    });
 
-                $('#sendResponse').click(function () {
-                    game.server.sendResponse($('#sessionId').val(), $('#response').val());
-                });
+            //    $('#sendResponse').click(function () {
+            //        game.server.sendResponse($('#sessionId').val(), $('#response').val());
+            //    });
 
-            });
+            //});
         });
         // This optional function html-encodes messages for display in the page.
         function htmlEncode(value) {
@@ -213,8 +214,7 @@
             return encodedValue;
         }
     </script>
+    <script src="http://static.opentok.com/v1.1/js/TB.min.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Scripts/sherlock.js"></script>
 }
-
-<script src="http://static.opentok.com/v1.1/js/TB.min.js"></script>
-<script src="~/Scripts/bootstrap.js"></script>
-<script src="~/Scripts/sherlock.js"></script>

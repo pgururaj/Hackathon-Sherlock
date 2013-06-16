@@ -36,10 +36,20 @@ namespace Hackathon.Sherlock.Web
 
         public static void AddUser(User user)
         {
-            if (Users.Count < 4)
+
+            if (Users.Where(a => a.SessionId == user.SessionId).Count() < 1)
             {
+                if (Users.Count < 4)
+                {
+                    user.IsPlayer = true;
+
+                }
+
+                else
+                    user.IsPlayer = false;
                 Users.Add(user);
             }
+
         }
 
         public static Category CurrentCategory{get;set;}
@@ -112,5 +122,15 @@ namespace Hackathon.Sherlock.Web
             CurrentResponses = null;
             CurrentChallenge = null;
         }
+
+        internal static bool GetUserStatus(string sessionId)
+        {
+            var user= Users.Where(a => a.SessionId == sessionId).FirstOrDefault();
+            if (user != null)
+                return user.IsPlayer;
+            return false;
+        }
+
+
     }
 }

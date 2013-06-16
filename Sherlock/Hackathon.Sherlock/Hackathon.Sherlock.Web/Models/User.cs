@@ -10,5 +10,6 @@ namespace Hackathon.Sherlock.Web.Models
         public string SessionId { get; set; }
         public long Money { get; set; }
         public string Name { get; set; }
+        public bool IsPlayer { get; set; }
     }
 }

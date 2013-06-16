@@ -78,9 +78,18 @@ namespace Hackathon.Sherlock.Web
 
         }
 
-        public void addUserToGame(string sessionId,string name)
+        public void AddUserToGame(string sessionId,string name)
         {
             Game.AddUser(new User{ SessionId=sessionId, Name=name, Money=0});
+        }
+
+        public void GetUserStatus(string sessionId)
+        {
+
+            var cid = Context.ConnectionId;
+            var userStatus = Game.GetUserStatus(sessionId);
+            Clients.Client(cid).setUserStatus(userStatus);
+
         }
     }
 }   

@@ -48,14 +48,29 @@ Player
 	# Make selection from screen
 
 */
+var game = $.connection.gameHub;
 
-var game = {
+$.connection.hub.start().done(function () {
+    var sessionId = $('#sessionId').val();
+    game.server.addUserToGame(sessionId, name);
+    game.server.getUserStatus(sessionId);
+    gameManager.init();
+});
+
+var gameManager = {
 	MAX_PLAYERS : 3, // Maximum number of player excluding Sherlock
+
+
 
 	init : function(){
 		
 
-		// Check if hit max players
+	    // Check if hit max players
+
+
+
+
+
 
 
 		// Get SESSION
@@ -100,7 +115,7 @@ var game = {
 };
 
 var user = {
-	canPlay : true,
+	canPlay : false,
 	sessionID : "",
 	streamID : "",
 	askName : function(){},
@@ -203,6 +218,8 @@ var tok = {
 		}
 	}
 }
+
+
 
 
 
