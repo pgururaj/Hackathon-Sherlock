@@ -19,11 +19,28 @@ namespace Hackathon.Sherlock.Web
 
         public void GetSherlockResponses()
         {
+
+            if (Game.Users.Where(a => a.SessionId == "sherlock").FirstOrDefault() == null)
+                Game.AddUser(new SherlockUser { IsPlayer = true, Money = 0, Name = "Sherlock", SessionId = "sherlock" });
             SherlockUser sh = (SherlockUser)Game.Users.Where(a => a.SessionId == "sherlock").FirstOrDefault();
             var response = sh.GetPossibleResponses(Game.CurrentChallenge).FirstOrDefault().Value;
             //System.Web.Script.Serialization.JavaScriptSerializer js = new System.Web.Script.Serialization.JavaScriptSerializer();
             //var data = js.Serialize(response);
             Clients.All.sherlockResponse(response.TextResponse);
+
+            if (Game.HasGameStarted())
+            {
+                var correctReponse = Game.GetCorrectResponse();
+
+                //if the response is current, log the current user and end the current round.
+                if (correctReponse.ToLower() == response.TextResponse.Trim().ToLower())
+                {
+                    Game.SetChallengeWinnner("sherlock");
+                    Game.EndRound();
+                    Clients.All.getWinner("sherlock");
+                }
+
+            }
         }
 
        /* public void SendUserResponse(string sessionId, string response)

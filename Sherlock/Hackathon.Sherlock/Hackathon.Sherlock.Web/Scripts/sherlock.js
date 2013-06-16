@@ -54,10 +54,9 @@ var game = $.connection.gameHub;
 $.connection.hub.start().done(function () {
     var sessionId = $('#sessionId').val();
     game.server.addUserToGame(sessionId, name);
-    game.server.getUserStatus(sessionId);
+    //game.server.getUserStatus(sessionId);
     game.server.getCurrentPicker();
     gameManager.init();
-
 });
 
 var gameManager = {
@@ -72,10 +71,18 @@ var gameManager = {
         $('#selection .answer .cell').click(function (event) {
             $(this).addClass("inactive");
             gameManager.handleChallengeSelection();
+            gameManager.responseCount = 0;
         });
 
-        $('#presentor').click(function (e) {
+        $('#challenge').click(function (e) {
             gameManager.presentAnswer();
+        });
+        $('#response').click(function (e) {
+            gameManager.dismissAnswer();
+            gameManager.presentBoard();
+
+            user.answerBox.val('');
+            sherlock.answerBox.text('');
         });
 
 
@@ -143,14 +150,20 @@ var gameManager = {
     },
     handleChallengeSelection : function(){
         game.server.sendChallenge();
+        game.server.getSherlockResponses();
+        
     },
-    handlePlayerResponse : function(sessionId){
-        if (sessionId == user.sessionID) {
-            // Player answered
-            alert('Player response');
+    handlePlayerResponse: function (sessionId, response) {
+        gameManager.responseCount++;
+
+        if (gameManager.responseCount == 2) {
+            
         }
-        else {
-            // Sherlock answered
+    },
+    responseCount : 0,
+    checkAnswer : function(answer){
+        if (gameManager.answerToCheck != $('#response').text()) {
+            return true;
         }
     },
 
@@ -161,11 +174,6 @@ var gameManager = {
 
 	dismissAnswer: function () {
 	    $('#presentor').addClass('hide');
-	},
-	disableCell : function () {
-
-	},
-	registerBoardChoice : function(){
 	},
 };
 
@@ -183,9 +191,6 @@ var user = {
 
 var sherlock = {
     answerBox : $('#sherlockAnswer'),
-	readChallenge : function(){},
-	selectChallenge : function(){},
-	submitResponse : function(){},
 };
 
 

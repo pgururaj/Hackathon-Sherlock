@@ -35,17 +35,24 @@ $(function () {
 
     //
     game.client.getUserResponse = function (sessionId, response) {
-        gameManager.handlePlayerResponse(sessionId);
+        gameManager.handlePlayerResponse(sessionId, response);
     }
 
     game.client.sherlockResponse = function ( response)
     {
         sherlock.answerBox.text(response);
+        gameManager.handlePlayerResponse("sherlock", response);
     }
 
     //
     game.client.getWinner = function (sessionId) {
-        $('#challenge').text("The Winner is " + sessionId);
+        var name = "KC Hackers";
+
+        if (sessionId == "sherlock") {
+            name = "Sherlock";
+        }
+
+        $('#answer').text("The Winner is " + name);
         gameManager.setCurrentPicker();
     }
 
