@@ -19,6 +19,12 @@ namespace Hackathon.Sherlock.Web
             
         }
 
+        public void SendChallengeByCategory(string category)
+        {
+            Game.CurrentCategory = (Category)Enum.Parse(typeof(Category),category,true);
+            SendChallenge();
+        }
+
         public void GetSherlockResponses()
         {
 
@@ -56,8 +62,8 @@ namespace Hackathon.Sherlock.Web
                 if (correctReponse.ToLower() == response.FirstOrDefault().TextResponse.Trim().ToLower())
                 {
                     Game.SetChallengeWinnner("sherlock");
-                    Game.EndRound();
-                    Clients.All.getWinner("sherlock");
+                    //Game.EndRound();
+                    //Clients.All.getWinner("sherlock");
                 }
 
             }

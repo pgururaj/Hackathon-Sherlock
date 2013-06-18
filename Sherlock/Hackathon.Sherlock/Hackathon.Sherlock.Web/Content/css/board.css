@@ -115,7 +115,8 @@ body .container {
     text-transform: uppercase;
     font-family: 'Neuton','Times New Roman', serif;;
     font-weight:bold;
-    font-size: 40px; 
+    font-size: 40px;
+    line-height: 1.1;
 	text-shadow: 1px 1px 2px #000;
 
 	background: -webkit-radial-gradient(center, ellipse cover, #88f 0%, #33a 100%);
@@ -142,28 +143,34 @@ body .container {
 /*** PLAYERS ***/
 .players {
 	float:left;
-	margin:50px auto 0 auto;
+	margin:20px auto 0 auto;
 }
 
 .players .player {
     display:block;
     padding:10px;
-	margin: 0 0 20px 20px;
+    height:150px;
+	margin: 0 0 0 20px;
+    border-bottom:solid 1px #555;
 	clear: both;
-	border-radius: 5px;
-    background: rgba(255,255,255,1);
+}
+
+.players .player:last-child {
+    border: none;
 }
 
 .player .avatar {
     float:left;
-	height: 150px;
-	width: 220px;
-	margin-right: 30px; 
+	width: 215px;
+	height: 138px;
+	margin-right: 20px; 
 
 	background: #fff;
 	border: solid 5px #fff;
+	border-radius: 5px;
 }
-.player .avatar:last-child (){
+
+.player .avatar:last-child{
 	margin-right:0;
 }
 
@@ -174,11 +181,16 @@ body .container {
 .player .answerBox {
     float: left;
     width: 200px;
-    padding-top: 20px;
+    padding-top: 10px;
 
+    color: #fff;
     text-align: center;    
     font-size: 28px;
     line-height: 1.1;
+}
+
+.player button {
+    width: 219px;
 }
 
 .player form {

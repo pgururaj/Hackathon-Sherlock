@@ -55,7 +55,7 @@ $.connection.hub.start().done(function () {
     var sessionId = $('#sessionId').val();
     game.server.addUserToGame(sessionId, name);
     //game.server.getUserStatus(sessionId);
-    game.server.getCurrentPicker();
+    //game.server.getCurrentPicker();
     gameManager.init();
 });
 
@@ -64,8 +64,9 @@ var gameManager = {
     didPlayerWin : true,
     init : function(){
         console.log('gameManager.init');
-
         user.sessionID = $('#sessionId').val();
+        game.server.startGame();
+
         /* GAME UI */
 
         $('#selection .answer .cell').click(function (event) {
@@ -149,7 +150,7 @@ var gameManager = {
 
     },
     handleChallengeSelection : function(){
-        game.server.sendChallenge();
+        game.server.sendChallengeByCategory('City');
         game.server.getSherlockResponses();
         
     },
@@ -201,8 +202,8 @@ var tok = {
 	apiKey : '32135502', 
 	sessionId: '1_MX4zMjEzNTUwMn4xMjcuMC4wLjF-VHVlIEp1biAxOCAxMzowMToxMCBQRFQgMjAxM34wLjM1MzQxMDA3fg',
 	token: 'T1==cGFydG5lcl9pZD0zMjEzNTUwMiZzZGtfdmVyc2lvbj10YnJ1YnktdGJyYi12MC45MS4yMDExLTAyLTE3JnNpZz1mNjA4OWYyMzdhMTM5MTc1Yjg1ZDJmYmRhNjQ0OGI1MDA5YjdiYWVlOnJvbGU9cHVibGlzaGVyJnNlc3Npb25faWQ9JmNyZWF0ZV90aW1lPTEzNzE1ODU2NjUmbm9uY2U9MC4yMDQ4NTA1ODU5NTY0MDY0OCZleHBpcmVfdGltZT0xMzc0MTc3NjY1JmNvbm5lY3Rpb25fZGF0YT0=',
-	VIDEO_WIDTH : 220,
-	VIDEO_HEIGHT : 150,
+	VIDEO_WIDTH : 215,
+	VIDEO_HEIGHT : 138,
 	publisher: null,
     session: null,
 

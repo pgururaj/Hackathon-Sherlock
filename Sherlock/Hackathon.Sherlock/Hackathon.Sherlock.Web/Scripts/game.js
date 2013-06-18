@@ -40,8 +40,10 @@ $(function () {
 
     game.client.sherlockResponse = function ( response)
     {
-        sherlock.answerBox.text(response);
-        alert("response from server - " + response);
+        response = JSON.parse(response);
+        console.log(response);
+
+        sherlock.answerBox.text(response[0].TextResponse);
         gameManager.handlePlayerResponse("sherlock", response);
     }
 

@@ -17,9 +17,9 @@ namespace Hackathon.Sherlock.Web
             if (!gameStarted)
                 gameStarted = true;
 
-            Random rn = new Random();
-            var index=rn.Next(1,3);
-            CurrentPicker = Users.Where(a => a.IsPlayer).ToList()[index-1];
+            //Random rn = new Random();
+            //var index=rn.Next(1,3);
+            //CurrentPicker = Users.Where(a => a.IsPlayer).ToList()[index-1];
 
             AddUser(new SherlockUser { Name = "Sherlock", SessionId = "sherlock", Money = 0, IsPlayer = true });
 
@@ -44,18 +44,22 @@ namespace Hackathon.Sherlock.Web
 
         public static void AddUser(User user)
         {
+            object lck=new object();
 
-            if (Users.Where(a => a.SessionId == user.SessionId).Count() < 1)
+            lock (lck)
             {
-                if (Users.Count < 4)
+                if (!Users.Where(a => a.SessionId == user.SessionId).Any())
                 {
-                    user.IsPlayer = true;
+                    if (Users.Count < 4)
+                    {
+                        user.IsPlayer = true;
 
+                    }
+
+                    else
+                        user.IsPlayer = false;
+                    Users.Add(user);
                 }
-
-                else
-                    user.IsPlayer = false;
-                Users.Add(user);
             }
 
         }
@@ -72,24 +76,30 @@ namespace Hackathon.Sherlock.Web
         internal static GameRound GetChallenge()
         {
             //it can't be the first one. get the unused one in that category
-            var currentChallenge = AllGameChallenges.AllGameRounds.Where(a => a.Category == Game.CurrentCategory && a.Used==false).FirstOrDefault();
 
 
-            
-            if (currentChallenge == null)
+            object lck = new object();
+            lock (lck)
             {
-                foreach (var gr in AllGameChallenges.AllGameRounds)
+                var currentChallenge = AllGameChallenges.AllGameRounds.Where(a => a.Category == Game.CurrentCategory && a.Used == false).FirstOrDefault();
+
+
+
+                if (currentChallenge == null)
                 {
-                    gr.Used = false;
+                    foreach (var gr in AllGameChallenges.AllGameRounds)
+                    {
+                        gr.Used = false;
+                    }
+
+                    currentChallenge = AllGameChallenges.AllGameRounds.Where(a => a.Category == Game.CurrentCategory && a.Used == false).FirstOrDefault();
+
                 }
-
-                currentChallenge = AllGameChallenges.AllGameRounds.Where(a => a.Category == Game.CurrentCategory && a.Used == false).FirstOrDefault();
-
+                CurrentChallenge = currentChallenge;
+                currentChallenge.Used = true;
+                currentResponses = null;
+                return currentChallenge;
             }
-            CurrentChallenge = currentChallenge;
-            currentChallenge.Used = true;
-            currentResponses = null;
-            return currentChallenge;
         }
 
         public static GameRound CurrentChallenge { get; set; }

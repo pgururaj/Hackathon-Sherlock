@@ -24,6 +24,7 @@ namespace Hackathon.Sherlock.Alchemy
 
         public Dictionary<string, AlchemyWeightedData> GetResponse(string SearchParam, string Category)
         {
+
             var sherlockRankList = new List<AlchemyWeightedData>();
             var aggDict = new Dictionary<string, AlchemyWeightedData>();
             try
@@ -54,7 +55,7 @@ namespace Hackathon.Sherlock.Alchemy
                         else
                         {
                             //new key, just add
-                            if(aggDict.Count<1)
+                            if(aggDict.Count<3)
                                 aggDict.Add(alchResponse.TextResponse, alchResponse);
                         }
                     }
