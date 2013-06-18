@@ -8,9 +8,10 @@ $(function () {
             + '</strong>: ' + htmlEncode(response) + '</li>');
     };
 
-
     game.client.newChallenge = function (challenge) {
-        $('#challenge').html(challenge);
+        challenge = JSON.parse(challenge);
+        console.log(challenge);
+        gameManager.presentChallenge(challenge)
     };
 
     game.client.isGameFull = function (value) {
@@ -34,17 +35,25 @@ $(function () {
 
     //
     game.client.getUserResponse = function (sessionId, response) {
-        $('#myResponse').html(response);
+        gameManager.handlePlayerResponse(sessionId, response);
     }
 
     game.client.sherlockResponse = function ( response)
     {
-        //handle sherlock response.
+        sherlock.answerBox.text(response);
+        gameManager.handlePlayerResponse("sherlock", response);
     }
 
     //
     game.client.getWinner = function (sessionId) {
-        $('#challenge').html("The Winner is " + sessionId);
+        var name = "KC Hackers";
+
+        if (sessionId == "sherlock") {
+            name = "Sherlock";
+        }
+
+        $('#answer').text("The Winner is " + name);
+        gameManager.setCurrentPicker();
     }
 
     game.client.setUserStatus = function (status) {
