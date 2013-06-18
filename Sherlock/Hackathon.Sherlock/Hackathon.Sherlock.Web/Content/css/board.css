@@ -22,22 +22,23 @@ html[xmlns] .clearfix {
 
 /***** Content *****/
 
-body {
+html body {
 	background: black;
+	background: url(../../Content/img/slide_bg.jpg) top left black no-repeat;
 }
 body .container {
 	text-align: center;
 	position: relative;
 }
 
+
+/*** Selection/Board ***/
 #board {
 	position: relative;
-	background: url(../../Content/img/slide_bg.jpg) top center black no-repeat;
-	width: 1090px;
+	width: 600px;
 	float: left;
 }
 
-/*** Selection ***/
 #selection {
 	position: relative;
 	display: table;
@@ -102,7 +103,7 @@ body .container {
 #presentor {
 	position: absolute;
 	top: 200px;
-	left: 325px;
+	left: 80px;
 	width:380px; /* 440 */
 	height:240px; /* 320 */
     padding: 40px 30px 0px;
@@ -139,41 +140,54 @@ body .container {
 }
 
 /*** PLAYERS ***/
-#players {
+.players {
 	float:left;
 	margin:50px auto 0 auto;
 }
 
-#players div {
-	margin-bottom: 30px;
+.players .player {
+    display:block;
+    padding:10px;
+	margin: 0 0 20px 20px;
 	clear: both;
+	border-radius: 5px;
+    background: rgba(255,255,255,1);
 }
 
-#players div form {
-	float:left;
-}
-
-
-#players div form textarea {
-	display: block;
-}
-
-#players .avatar {
+.player .avatar {
+    float:left;
 	height: 150px;
 	width: 220px;
-	float: left;
 	margin-right: 30px; 
 
 	background: #fff;
 	border: solid 5px #fff;
-	border-radius: 5px;
 }
-#players .avatar:last-child (){
+.player .avatar:last-child (){
 	margin-right:0;
 }
 
-#players .sherlock .avatar{
+#sherlock .avatar{
 	background: url(../../Content/img/sherlock.png) #fff no-repeat center center;
+}
+
+.player .answerBox {
+    float: left;
+    width: 200px;
+    padding-top: 20px;
+
+    text-align: center;    
+    font-size: 28px;
+    line-height: 1.1;
+}
+
+.player form {
+	float:left;
+}
+
+.player form textarea {
+	display: block;
+    font-size:20px;
 }
 
 #players .active {
