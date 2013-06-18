@@ -41,6 +41,7 @@ $(function () {
     game.client.sherlockResponse = function ( response)
     {
         sherlock.answerBox.text(response);
+        alert("response from server - " + response);
         gameManager.handlePlayerResponse("sherlock", response);
     }
 

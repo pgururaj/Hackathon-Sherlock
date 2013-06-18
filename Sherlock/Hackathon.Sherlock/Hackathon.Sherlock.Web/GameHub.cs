@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using Hackathon.Sherlock.Web.Models;
 using Microsoft.AspNet.SignalR;
+using Newtonsoft.Json;
+using Hackathon.Sherlock.Alchemy;
 
 namespace Hackathon.Sherlock.Web
 {
@@ -23,17 +25,35 @@ namespace Hackathon.Sherlock.Web
             if (Game.Users.Where(a => a.SessionId == "sherlock").FirstOrDefault() == null)
                 Game.AddUser(new SherlockUser { IsPlayer = true, Money = 0, Name = "Sherlock", SessionId = "sherlock" });
             SherlockUser sh = (SherlockUser)Game.Users.Where(a => a.SessionId == "sherlock").FirstOrDefault();
-            var response = sh.GetPossibleResponses(Game.CurrentChallenge).FirstOrDefault().Value;
+
+            var responseDicListFromAlchemy = sh.GetPossibleResponses(Game.CurrentChallenge);
+            //string serializedData = JsonConvert.SerializeObject(responseDicListFromAlchemy);
+
+            //ABid Code//var response = sh.GetPossibleResponses(Game.CurrentChallenge).FirstOrDefault().Value;
+
+
+            var listOfAlchResponses = new List<AlchemyWeightedData>();
+
+            foreach (var dictItem in responseDicListFromAlchemy)
+            {
+                var key = dictItem.Key;
+                var value = dictItem.Value;
+                listOfAlchResponses.Add(value);
+            }
+
+            var response = listOfAlchResponses.OrderByDescending(a => a.RelevanceScore);
+
             //System.Web.Script.Serialization.JavaScriptSerializer js = new System.Web.Script.Serialization.JavaScriptSerializer();
             //var data = js.Serialize(response);
-            Clients.All.sherlockResponse(response.TextResponse);
+            Clients.All.sherlockResponse(JsonConvert.SerializeObject(response));
 
             if (Game.HasGameStarted())
             {
                 var correctReponse = Game.GetCorrectResponse();
 
                 //if the response is current, log the current user and end the current round.
-                if (correctReponse.ToLower() == response.TextResponse.Trim().ToLower())
+                //if (correctReponse.ToLower() == response.TextResponse.Trim().ToLower())
+                if (correctReponse.ToLower() == response.FirstOrDefault().TextResponse.Trim().ToLower())
                 {
                     Game.SetChallengeWinnner("sherlock");
                     Game.EndRound();
