@@ -11,6 +11,39 @@ namespace Hackathon.Sherlock.IronIO
 {
     public class IronMQHelper
     {
+
+        public class MessageCreateSuccess
+        {
+            public string id { get; set; }
+            public string name { get; set; }
+            public int size {get;set;}
+            public string project_id { get; set; }
+            public int retries { get; set; }
+            public string push_type { get; set; }
+            public int retries_delay { get; set; }
+        }
+
+        public class Subscriber
+        {
+            public string url { get; set; }
+        }
+
+        public class MsgQRequestBody
+        {
+            public string push_type { get; set; }
+            public IList<Subscriber> subscribers { get; set; }
+        }
+
+        public class Message
+        {
+            public string body { get; set; }
+        }
+
+        public class AddMessageReqPayload
+        {
+            public IList<Message> messages { get; set; }
+        }
+
         public QueueTaskResponse queue_tasks(string projectId, string token, QueueTaskRequest tasks)
         {
             string uri = "https://worker-aws-us-east-1.iron.io:443/2/projects/" + projectId + "/tasks";
@@ -43,7 +76,7 @@ namespace Hackathon.Sherlock.IronIO
 
         public string GetTaskResponse(string ProjectId, string TaskId, string oauthToken)
         {
-            //https://worker-aws-us-east-1.iron.io/2/projects/51bbe549ed3d7679f5000282/tasks/51bd71110865524a8c7c5cca?oauth=BXxvffaWJeFwM4WTo52mt1x9OXY
+            
             using (var web = new WebClient())
             {
                 web.Headers.Add("Referrer", "http://your-website-here/");
@@ -53,5 +86,72 @@ namespace Hackathon.Sherlock.IronIO
             }
             
         }
+
+        public MessageCreateSuccess CreateIronMQ(string qName, string oauthToken, string projectId)
+        {
+                                       
+            string uri = string.Format("https://mq-aws-us-east-1.iron.io/1/projects/{0}/queues/{1}", projectId, qName);
+            HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(uri);
+            request.ContentType = "application/json";
+            request.Headers.Add("Authorization", "OAuth " + oauthToken);
+            request.UserAgent = "IronMQ .Net Client";
+            request.Method = "POST";
+
+            //string body = "{\"push_type\": \"multicast\",\"subscribers\": null}";
+            MsgQRequestBody body = new MsgQRequestBody();
+            body.push_type = "multicast";
+            body.subscribers = null;
+
+            var bodyStr = JsonConvert.SerializeObject(body);
+
+            if (bodyStr != null)
+            {
+                using (System.IO.StreamWriter write = new System.IO.StreamWriter(request.GetRequestStream()))
+                {
+                    write.Write(bodyStr);
+                    write.Flush();
+                }
+            }
+
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+
+            using (System.IO.StreamReader reader = new System.IO.StreamReader(response.GetResponseStream()))
+            {
+                //return reader.ReadToEnd();
+
+                return JsonConvert.DeserializeObject<MessageCreateSuccess>(reader.ReadToEnd());
+            }
+        }
+
+        public string  AddMessagesToQueue(string qName, string oauthToken, string projectId, AddMessageReqPayload addMessageReqPayload)
+        {
+            string uri = string.Format("https://mq-aws-us-east-1.iron.io/1/projects/{0}/queues/{1}", projectId, qName);
+            HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(uri);
+            request.ContentType = "application/json";
+            request.Headers.Add("Authorization", "OAuth " + oauthToken);
+            request.UserAgent = "IronMQ .Net Client";
+            request.Method = "POST";
+
+            var body = JsonConvert.SerializeObject(addMessageReqPayload);
+
+            if (body != null)
+            {
+                using (System.IO.StreamWriter write = new System.IO.StreamWriter(request.GetRequestStream()))
+                {
+                    write.Write(body);
+                    write.Flush();
+                }
+            }
+
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+
+            string resultVal = "error";
+            using (System.IO.StreamReader reader = new System.IO.StreamReader(response.GetResponseStream()))
+            {
+                resultVal = reader.ReadToEnd();
+            }
+            return resultVal;
+        }
     }
 }
+
