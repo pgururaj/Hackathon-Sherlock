@@ -1,4 +1,5 @@
 ﻿using Hackathon.Sherlock.Alchemy;
+using Hackathon.Sherlock.IronIO;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -35,6 +36,15 @@ namespace Hackathon.AlchemyWorker.Console
                 }
 
 
+
+                //int indtest = Array.IndexOf(args, "-d");
+                //if (indtest >= 0 && (indtest + 1) < args.Length)
+                //{
+                //    string pathTest = args[indtest + 1];
+                //    System.Console.WriteLine("show files -" + File.ReadAllText(pathTest));
+                //}
+
+
                 StringBuilder sb = new StringBuilder();
                 sb.AppendFormat("{0}?apikey={1}&outputMode=json&url={2}", URLGetRankedNamedEntities, APIKey, payloadInstance.Url);
                 //System.Console.WriteLine("!!call to Alchemi=" + sb.ToString());
@@ -57,6 +67,23 @@ namespace Hackathon.AlchemyWorker.Console
 
                 }
                 System.Console.WriteLine(JsonConvert.SerializeObject(sherlockRankList));
+                //add to Q
+                //IronMQHelper iron = new IronMQHelper();
+
+                //IronMQHelper.AddMessageReqPayload payloadReq = new IronMQHelper.AddMessageReqPayload();
+                //IronMQHelper.Message ironMsg = new IronMQHelper.Message();
+
+                ////for the body
+                //ironMsg.body = JsonConvert.SerializeObject(sherlockRankList);
+                //var msgList = new List<IronMQHelper.Message>();
+                //msgList.Add(ironMsg);
+                //payloadReq.messages = msgList;
+
+                //System.Console.WriteLine("Hopefor the best " + JsonConvert.SerializeObject(payloadReq));
+
+                //var msgInsertedToQStatus = iron.AddMessagesToQueue("SherlockMQProd", "dP79mahQ6lic5qetpQ3OmrohfNE", "51bbe549ed3d7679f5000282", payloadReq);
+                //System.Console.WriteLine("After msg inserted to Q - " + msgInsertedToQStatus);
+
             }
             catch (Exception ex)
             {

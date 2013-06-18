@@ -44,22 +44,26 @@ namespace Hackathon.Sherlock.Web.Controllers
             //string outputAlch = QueueTask.queue_task("51bbe549ed3d7679f5000282", "BXxvffaWJeFwM4WTo52mt1x9OXY", "alchemy");
 
             
-            IronMQHelper iron = new IronMQHelper();
+            //IronMQHelper iron = new IronMQHelper();
 
-            var payload = new SamplePaylaod { Url = @"http://www.kcfountains.com/", Category = "City" };
+            //var payload = new SamplePaylaod { Url = @"http://www.kcfountains.com/", Category = "City" };
 
-            var task1 = new QueueTaskRequest.Task() {
-                code_name = "alchemy", payload = JsonConvert.SerializeObject(payload)
-            };
+            //var task1 = new QueueTaskRequest.Task() {
+            //    code_name = "alchemy", payload = JsonConvert.SerializeObject(payload)
+            //};
 
-            var tasksToBeQueued = new QueueTaskRequest();
-            var listOfTasks = new List<QueueTaskRequest.Task>();
-            listOfTasks.Add(task1);
-            tasksToBeQueued.tasks = listOfTasks;
+            //var tasksToBeQueued = new QueueTaskRequest();
+            //var listOfTasks = new List<QueueTaskRequest.Task>();
+            //listOfTasks.Add(task1);
+            //tasksToBeQueued.tasks = listOfTasks;
 
-            var response = iron.queue_tasks("51bbe549ed3d7679f5000282", "BXxvffaWJeFwM4WTo52mt1x9OXY", tasksToBeQueued);
+            //var response = iron.queue_tasks("51bbe549ed3d7679f5000282", "BXxvffaWJeFwM4WTo52mt1x9OXY", tasksToBeQueued);
 
             //extract the TaskID from Output.
+
+
+            //51bd9a5de6339469473056e0 = mQ ID
+            
             
             return View();
         }

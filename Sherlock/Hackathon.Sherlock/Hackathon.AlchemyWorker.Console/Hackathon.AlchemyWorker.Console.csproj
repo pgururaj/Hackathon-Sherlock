@@ -56,6 +56,10 @@
       <Project>{85099a32-adfe-4a15-a173-fa130111c2a1}</Project>
       <Name>Hackathon.Sherlock.Alchemy</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Hackathon.Sherlock.IronIO\Hackathon.Sherlock.IronIO.csproj">
+      <Project>{e2c0da48-d29a-45c1-8063-6dc77de3c1bb}</Project>
+      <Name>Hackathon.Sherlock.IronIO</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

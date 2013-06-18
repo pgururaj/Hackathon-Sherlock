@@ -15,6 +15,9 @@ namespace Hackathon.Sherlock.Alchemy
         private string URLGetRankedKeyword = "http://access.alchemyapi.com/calls/url/URLGetRankedKeywords";
         private string URLGetRankedNamedEntities = "http://access.alchemyapi.com/calls/url/URLGetRankedNamedEntities";
 
+        private string IronIOProjectID = "51bbe549ed3d7679f5000282";
+        private string IronIOAuthToken = "dP79mahQ6lic5qetpQ3OmrohfNE";//BXxvffaWJeFwM4WTo52mt1x9OXY
+
 
         private string URLGetConstraintQuery = "http://access.alchemyapi.com/calls/url/URLGetConstraintQuery";
         private string URLGetText = "http://access.alchemyapi.com/calls/url/URLGetText";
@@ -79,10 +82,17 @@ namespace Hackathon.Sherlock.Alchemy
                 IronMQHelper iron = new IronMQHelper();
                 var tasksToBeQueued = new QueueTaskRequest();
                 var listOfTasks = new List<QueueTaskRequest.Task>();
+
+                var response1 = iron.CreateIronMQ("SherlockMQProd", IronIOAuthToken, IronIOProjectID);
+
                 //iterate through the GoogleSearchResult and pass each URL to Alchemy to get a weihted score
                 foreach (var googleResult in googleresultList)
                 {
-                    //distribute the Alchemi calls to different IronIO worker threads.    
+                    //distribute the Alchemi calls to different IronIO worker threads.  
+
+                    //IronMQHelper iron = new IronMQHelper();
+                    
+
                     var payload = new AlchemyPayloadToIron { Url = googleResult.GSearchResultURL, Category = Category };
 
                     var taskToIron = new QueueTaskRequest.Task()
@@ -94,11 +104,15 @@ namespace Hackathon.Sherlock.Alchemy
                     tasksToBeQueued.tasks = listOfTasks;
                     //var alchWtData = CallGetRankedNamedEntities(googleResult.GSearchResultURL, Category);
                 }
-                QueueTaskResponse response = iron.queue_tasks("51bbe549ed3d7679f5000282", "BXxvffaWJeFwM4WTo52mt1x9OXY", tasksToBeQueued);
+                QueueTaskResponse response = iron.queue_tasks(IronIOProjectID, IronIOAuthToken, tasksToBeQueued);
+
+
+               
+
 
                 foreach (var ironTask in response.tasks)
                 {
-                    string responseFromIronTask = iron.GetTaskResponse("51bbe549ed3d7679f5000282", ironTask.id, "BXxvffaWJeFwM4WTo52mt1x9OXY");
+                    string responseFromIronTask = iron.GetTaskResponse(IronIOProjectID, ironTask.id, IronIOAuthToken);
                     IList<AlchemyWeightedData> alchWtData = JsonConvert.DeserializeObject<IList<AlchemyWeightedData>>(responseFromIronTask);
                     foreach (var alchResponse in alchWtData)
                     {

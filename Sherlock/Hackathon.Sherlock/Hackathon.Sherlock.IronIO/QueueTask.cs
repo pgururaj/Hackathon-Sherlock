@@ -37,7 +37,7 @@ namespace Hackathon.Sherlock.IronIO
 
         static public void Main(string[] args)
         {
-            Console.WriteLine(queue_task("51bbe549ed3d7679f5000282", "BXxvffaWJeFwM4WTo52mt1x9OXY", "smart.worker"));
+            //Console.WriteLine(queue_task("51bbe549ed3d7679f5000282", "BXxvffaWJeFwM4WTo52mt1x9OXY", "smart.worker"));
         }
     }
 }
