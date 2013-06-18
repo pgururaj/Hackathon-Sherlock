@@ -23,7 +23,7 @@ namespace Hackathon.Sherlock.Web
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
 
-            bundles.Add(new StyleBundle("~/Content/css").Include(
+            bundles.Add(new StyleBundle("~/bundles/css").Include(
                 "~/Content/site.css", 
                 "~/Content/css/board.css",
                 "~/Content/css/bootstrap.css"
