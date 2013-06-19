@@ -29,14 +29,11 @@ namespace Hackathon.Sherlock.Alchemy
             var aggDict = new Dictionary<string, AlchemyWeightedData>();
             try
             {
-
                 //call google to get the search results - URL
                 GoogleHelper gHelp = new GoogleHelper();
                 IList<GoogleSearchResult> googleresultList = gHelp.GetSearchResults(SearchParam);
 
                 IList<AlchemyWeightedData> aggrgAlchemyWeight = new List<AlchemyWeightedData>();
-
-               
 
                 //iterate through the GoogleSearchResult and pass each URL to Alchemy to get a weihted score
                 foreach (var googleResult in googleresultList)
@@ -92,8 +89,6 @@ namespace Hackathon.Sherlock.Alchemy
                     //distribute the Alchemi calls to different IronIO worker threads.  
 
                     //IronMQHelper iron = new IronMQHelper();
-                    
-
                     var payload = new AlchemyPayloadToIron { Url = googleResult.GSearchResultURL, Category = Category };
 
                     var taskToIron = new QueueTaskRequest.Task()
@@ -106,10 +101,6 @@ namespace Hackathon.Sherlock.Alchemy
                     //var alchWtData = CallGetRankedNamedEntities(googleResult.GSearchResultURL, Category);
                 }
                 QueueTaskResponse response = iron.queue_tasks(IronIOProjectID, IronIOAuthToken, tasksToBeQueued);
-
-
-               
-
 
                 foreach (var ironTask in response.tasks)
                 {
@@ -127,7 +118,8 @@ namespace Hackathon.Sherlock.Alchemy
                         else
                         {
                             //new key, just add
-                            aggDict.Add(alchResponse.TextResponse, alchResponse);
+                            if (aggDict.Count < 3)
+                                aggDict.Add(alchResponse.TextResponse, alchResponse);
                         }
                     }
                 }

@@ -80,7 +80,8 @@ namespace Hackathon.Sherlock.IronIO
             using (var web = new WebClient())
             {
                 web.Headers.Add("Referrer", "http://your-website-here/");
-                var result = web.DownloadString(String.Format("https://worker-aws-us-east-1.iron.io/2/projects/{0}/tasks/{1}?oauth={2}", ProjectId, TaskId, oauthToken));
+            //https://worker-aws-us-east-1.iron.io/2/projects/51bbe549ed3d7679f5000282/tasks/51bdbc35d54db3322a7c7d6f/log?oauth=dP79mahQ6lic5qetpQ3OmrohfNE
+                var result = web.DownloadString(String.Format("https://worker-aws-us-east-1.iron.io/2/projects/{0}/tasks/{1}/log?oauth={2}", ProjectId, TaskId, oauthToken));
 
                 return result;
             }

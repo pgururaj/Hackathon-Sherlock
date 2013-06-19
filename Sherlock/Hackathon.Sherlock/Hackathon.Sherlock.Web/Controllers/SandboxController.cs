@@ -22,7 +22,8 @@ namespace Hackathon.Sherlock.Web.Controllers
             AlchemyHelper alchemy = new AlchemyHelper();
             //var response1 = alchemy.GetResponse("The \"Hand of God\" goal happened in a soccer world cup in this city", "City");
 
-            var response2 = alchemy.GetResponse("City of Fountains", "City");
+            //var response2 = alchemy.GetResponse("City of Fountains", "City");
+            var response2 = alchemy.GetResponse("City of Fountains", "City",true);
 
             //alchemy.CallGetRankedKeywordAPI("http://www.kcfountains.com/");
             //var response = alchemy.CallGetRankedNamedEntities("http://www.kcfountains.com/", "City");
