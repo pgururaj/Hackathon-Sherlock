@@ -98,7 +98,7 @@ namespace Hackathon.Sherlock.Web
                 CurrentChallenge = currentChallenge;
                 currentChallenge.Used = true;
                 currentResponses = null;
-                return currentChallenge;
+                return CurrentChallenge;
             }
         }
 
