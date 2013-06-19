@@ -71,7 +71,17 @@ var gameManager = {
 
         $('#selection .answer .cell').click(function (event) {
             $(this).addClass("inactive");
-            gameManager.handleChallengeSelection();
+            var id = $(this)[0].id, category;
+            id = id.split("_")[1];
+            
+            if (1 == id) {
+                category = "Person";
+            }
+            else if(2 == id){
+                category = "City";
+            }
+
+            gameManager.handleChallengeSelection(category);
             gameManager.responseCount = 0;
         });
 
@@ -149,9 +159,9 @@ var gameManager = {
         }, 350);
 
     },
-    handleChallengeSelection : function(){
-        game.server.sendChallengeByCategory('City');
-        game.server.getSherlockResponses();
+    handleChallengeSelection : function(category){
+        game.server.sendChallengeByCategory(category);
+        //game.server.getSherlockResponses();
         
     },
     handlePlayerResponse: function (sessionId, response) {
@@ -191,7 +201,25 @@ var user = {
 
 
 var sherlock = {
-    answerBox : $('#sherlockAnswer'),
+    answerBox: $('#sherlockAnswer'),
+    answerGrid:  $('#sherlockGrid'),
+    answerQuestion: function (response) {
+        console.log(response);
+
+        // Populate answer screen
+        sherlock.answerBox.text(response[0].TextResponse);
+
+        html = "";
+        $(response).each(function (idx, answer) {
+            console.log(answer.TextResponse);
+            barWidth = 100 * answer.RelevanceScore;
+            html += "<li><span style='width:"+ barWidth +"%'></span>" + answer.TextResponse + "</li>";
+        });
+        sherlock.answerGrid.html(html);
+
+        gameManager.handlePlayerResponse("sherlock", response);
+    },
+
 };
 
 

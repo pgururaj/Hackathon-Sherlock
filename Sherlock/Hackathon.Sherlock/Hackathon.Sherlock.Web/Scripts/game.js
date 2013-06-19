@@ -18,6 +18,10 @@ $(function () {
         //do stuff is game is full
     }
 
+    game.client.endGame = function () {
+        //do stuff is game is full
+        //TODO
+    }
 
     game.client.startGame = function () {
         //do stuff is game is full
@@ -40,11 +44,7 @@ $(function () {
 
     game.client.sherlockResponse = function ( response)
     {
-        response = JSON.parse(response);
-        console.log(response);
-
-        sherlock.answerBox.text(response[0].TextResponse);
-        gameManager.handlePlayerResponse("sherlock", response);
+        sherlock.answerQuestion(JSON.parse(response));
     }
 
     //

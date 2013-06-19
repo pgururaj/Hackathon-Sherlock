@@ -181,7 +181,7 @@ namespace Hackathon.Sherlock.Web
 
 
             EndRound();
-            Users = null;
+            Users.Clear();
             gameStarted = false;
         }
     }

@@ -23,6 +23,7 @@ namespace Hackathon.Sherlock.Web
         {
             Game.CurrentCategory = (Category)Enum.Parse(typeof(Category),category,true);
             SendChallenge();
+            GetSherlockResponses();
         }
 
         public void GetSherlockResponses()
@@ -53,20 +54,20 @@ namespace Hackathon.Sherlock.Web
             //var data = js.Serialize(response);
             Clients.All.sherlockResponse(JsonConvert.SerializeObject(response));
 
-            if (Game.HasGameStarted())
-            {
-                var correctReponse = Game.GetCorrectResponse();
+            //if (Game.HasGameStarted())
+            //{
+            //    var correctReponse = Game.GetCorrectResponse();
 
-                //if the response is current, log the current user and end the current round.
-                //if (correctReponse.ToLower() == response.TextResponse.Trim().ToLower())
-                if (correctReponse.ToLower() == response.FirstOrDefault().TextResponse.Trim().ToLower())
-                {
-                    Game.SetChallengeWinnner("sherlock");
-                    //Game.EndRound();
-                    //Clients.All.getWinner("sherlock");
-                }
+            //    //if the response is current, log the current user and end the current round.
+            //    //if (correctReponse.ToLower() == response.TextResponse.Trim().ToLower())
+            //    if (correctReponse.ToLower() == response.FirstOrDefault().TextResponse.Trim().ToLower())
+            //    {
+            //        Game.SetChallengeWinnner("sherlock");
+            //        //Game.EndRound();
+            //        //Clients.All.getWinner("sherlock");
+            //    }
 
-            }
+            //}
         }
 
        /* public void SendUserResponse(string sessionId, string response)
@@ -82,6 +83,7 @@ namespace Hackathon.Sherlock.Web
 
         public void StartGame()
         {
+            Game.EndGame();
             Game.StartGame();
             Clients.All.startGame();
         }
